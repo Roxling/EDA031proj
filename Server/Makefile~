@@ -23,7 +23,7 @@ all:   $(PROGS)
 
 all: $(PROGS)
 
-newsserver: newsserver.o connection.o server.o
+newsserver: newsserver.o connection.o
 
 
 # Phony targets

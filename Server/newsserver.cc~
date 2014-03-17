@@ -1,6 +1,6 @@
 #include "server.h"
-#include "connection.h"
-#include "connectionclosedexception.h"
+#include "../connection.h"
+#include "../connectionclosedexception.h"
 
 
 #include <memory>
@@ -8,6 +8,20 @@
 #include <string>
 #include <stdexcept>
 #include <cstdlib>
+
+using namespace std;
+
+
+/*
+ * Send a string to a client.
+ */
+void writeString(const shared_ptr<Connection>& conn, const string& s) {
+	for (char c : s) {
+		conn->write(c);
+	}
+	conn->write('$');
+}
+
 
 int main(int argc, char* argv[]){
 	if (argc != 2) {
@@ -33,17 +47,8 @@ int main(int argc, char* argv[]){
 while (true) {
 		auto conn = server.waitForActivity();
 		if (conn != nullptr) {
-			try {
-				int nbr = readNumber(conn);
-				string result;
-				if (nbr > 0) {
-					result = "positive";
-				} else if (nbr == 0) {
-					result = "zero";
-				} else {
-					result = "negative";
-				}
-				writeString(conn, result);
+			try {				
+				writeString(conn, "ServerSvar");
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
 				cout << "Client closed connection" << endl;

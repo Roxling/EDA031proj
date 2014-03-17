@@ -9,6 +9,20 @@
 #include <stdexcept>
 #include <cstdlib>
 
+using namespace std;
+
+
+/*
+ * Send a string to a client.
+ */
+void writeString(const shared_ptr<Connection>& conn, const string& s) {
+	for (char c : s) {
+		conn->write(c);
+	}
+	conn->write('$');
+}
+
+
 int main(int argc, char* argv[]){
 	if (argc != 2) {
 		cerr << "Usage: myserver port-number" << endl;
@@ -33,8 +47,7 @@ int main(int argc, char* argv[]){
 while (true) {
 		auto conn = server.waitForActivity();
 		if (conn != nullptr) {
-			try {
-				int nbr = readNumber(conn);
+			try {				
 				writeString(conn, "ServerSvar");
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);

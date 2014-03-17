@@ -14,7 +14,7 @@ LDFLAGS =   -g
 #CXXFLAGS += -stdlib=libc++
 #LDFLAGS += -stdlib=libc++
 
-PROGS = newsserver
+PROGS = Client/user
 
 all:   $(PROGS)
 
@@ -23,7 +23,7 @@ all:   $(PROGS)
 
 all: $(PROGS)
 
-newsserver: newsserver.o connection.o server.o
+user: Client/user.o Client/connection.o
 
 
 # Phony targets
