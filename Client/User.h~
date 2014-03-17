@@ -58,6 +58,7 @@ int main(int argc, char* argv[]) {
 			writeNumber(conn, nbr);
 			string reply = readString(conn);
 			cout << " " << reply << endl;
+			cout << "Type another number: ";
 		} catch (ConnectionClosedException&) {
 			cout << " no reply from server. Exiting." << endl;
 			exit(1);
