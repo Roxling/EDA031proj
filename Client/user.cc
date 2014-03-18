@@ -1,4 +1,3 @@
-/* myclient.cc: sample client program */
 #include "connection.h"
 #include "connectionclosedexception.h"
 

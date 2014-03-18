@@ -4,11 +4,8 @@
 #include <string>
 
 class Command{
-
 public:
-	virtual void exec(std::string args);
-
-
+	void exec(std::string args);
 
 };
 

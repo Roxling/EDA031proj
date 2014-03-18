@@ -1,6 +1,8 @@
 #include "server.h"
 #include "connection.h"
 #include "connectionclosedexception.h"
+#include "protocol.h"
+#include "CommandFactory.h"
 
 
 #include <memory>
@@ -11,7 +13,7 @@
 
 using namespace std;
 
-
+using byte = int;
 /*
  * Send a string to a client.
  */
@@ -22,8 +24,26 @@ void writeString(const shared_ptr<Connection>& conn, const string& s) {
 	conn->write('$');
 }
 
+string readcommand(const shared_ptr<Connection>& conn){
+
+	string cmdstring;
+	byte b = conn->read();
+	while(b != 8){
+	cout << b << endl;
+	cmdstring += b;
+	b = conn->read();
+	}
+	cout << "freee!" << endl;
+	cmdstring += b;
+	return cmdstring;
+	
+}
+
 
 int main(int argc, char* argv[]){
+
+	
+
 	if (argc != 2) {
 		cerr << "Usage: myserver port-number" << endl;
 		exit(1);
@@ -43,11 +63,14 @@ int main(int argc, char* argv[]){
 		exit(1);
 	}
 
+	CommandFactory cf;
 
 while (true) {
 		auto conn = server.waitForActivity();
 		if (conn != nullptr) {
-			try {				
+			try {
+				string cmdstring = readcommand(conn);
+				//cf.createcommand(cmdstring);		
 				writeString(conn, "ServerSvar");
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);

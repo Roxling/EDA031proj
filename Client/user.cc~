@@ -14,7 +14,7 @@ using namespace std;
  */
 void writeCommand(const Connection& conn, string command) {
 	for(char c : command){	
-		conn.write((c);
+		conn.write(c);
 	}
 }
 
