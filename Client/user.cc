@@ -10,10 +10,12 @@
 using namespace std;
 
 /*
- * Send an integer to the server as four bytes.
+ * Send a string to the server.
  */
 void writeCommand(const Connection& conn, string command) {
-	//TO DO
+	for(char c : command){	
+		conn.write(c);
+	}
 }
 
 /*
@@ -36,8 +38,7 @@ int main(int argc, char* argv[]) {
 	
 	int port = -1;
 	try {
-	port;
-	//	port = stoi(argv[2]);
+		port = stoi(argv[2]);
 	} catch (exception& e) {
 		cerr << "Wrong port number. " << e.what() << endl;
 		exit(1);
