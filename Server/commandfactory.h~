@@ -1,0 +1,17 @@
+#ifndef CONNECTION_H
+#define CONNECTION_H
+
+
+class commandfactory{
+
+public:
+	Command createcommand(string cmd);
+
+
+};
+
+
+
+
+
+#endif
