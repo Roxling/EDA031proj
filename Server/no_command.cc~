@@ -1,0 +1,6 @@
+
+
+#include "no_command.h"
+virtual void exec(std::string& args) override{
+	//SHDNAIJDASl
+}

@@ -5,11 +5,8 @@
 
 class Command{
 public:
-	void exec(std::string args);
-
+	virtual void exec(std::string& args){};
 };
-
-
 
 #endif
 

@@ -13,7 +13,7 @@
 
 using namespace std;
 
-using byte = int;
+using byte = char;
 /*
  * Send a string to a client.
  */
@@ -27,13 +27,17 @@ void writeString(const shared_ptr<Connection>& conn, const string& s) {
 string readcommand(const shared_ptr<Connection>& conn){
 
 	string cmdstring;
+	
 	byte b = conn->read();
+	/*
 	while(b != 8){
 	cout << b << endl;
 	cmdstring += b;
 	b = conn->read();
 	}
 	cout << "freee!" << endl;
+	
+	*/
 	cmdstring += b;
 	return cmdstring;
 	
@@ -41,8 +45,6 @@ string readcommand(const shared_ptr<Connection>& conn){
 
 
 int main(int argc, char* argv[]){
-
-	
 
 	if (argc != 2) {
 		cerr << "Usage: myserver port-number" << endl;
@@ -70,7 +72,13 @@ while (true) {
 		if (conn != nullptr) {
 			try {
 				string cmdstring = readcommand(conn);
-				//cf.createcommand(cmdstring);		
+
+				byte com = 0;
+				//com = substr(......TODO
+				string args;	
+				Command c = cf.createcommand(com);
+				c.exec(args);
+				
 				writeString(conn, "ServerSvar");
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);

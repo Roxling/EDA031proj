@@ -6,11 +6,12 @@
 #include "protocol.h"
 
 using namespace std;
-
+using byte = char;
 class CommandFactory{
-
 public:
-	Command createcommand(string cmd);
+	Command createcommand(byte cmd);
+private: struct Protocol p;
+
 };
 
 

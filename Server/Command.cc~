@@ -1,9 +1,9 @@
-
 #include <string>
 #include "Command.h"
 
 
 
-void exec(std::string args) {
+virtual void Command::exec(std::string& args) override{
+//Do nothing
 }
 
