@@ -1,8 +1,8 @@
 #include "server.h"
-#include "connection.h"
-#include "connectionclosedexception.h"
-#include "protocol.h"
-#include "CommandFactory.h"
+#include "../connection.h"
+#include "../connectionclosedexception.h"
+#include "../protocol.h"
+#include "Commands/CommandFactory.h"
 
 
 #include <memory>

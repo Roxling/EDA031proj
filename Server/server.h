@@ -28,7 +28,7 @@
 
 #include <vector>
 #include <memory>
-#include "connection.h"
+#include "../connection.h"
 
 /* A server listens to a port and handles multiple connections */
 class Server {

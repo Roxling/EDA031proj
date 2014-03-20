@@ -3,7 +3,7 @@
 
 #include "Command.h"
 #include <string>
-#include "protocol.h"
+#include "../../protocol.h"
 
 using namespace std;
 using byte = char;

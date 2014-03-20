@@ -1,7 +1,6 @@
 #include "Command.h"
 #include "CommandFactory.h"
 #include <string>
-#include "protocol.h"
 
 #include "create_ng_command.h"
 #include "delete_ng_command.h"

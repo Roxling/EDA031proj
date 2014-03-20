@@ -23,9 +23,9 @@ all:   $(PROGS)
 
 all: $(PROGS)
 
-newsserver: newsserver.o connection.o server.o CommandFactory.o
+newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o
 
-CommandFactory: Command.o no_command.o
+CommandFactory: Commands/Command.o Commands/no_command.o
 
 # Phony targets
 .PHONY: all clean

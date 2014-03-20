@@ -23,7 +23,7 @@ all:   $(PROGS)
 
 all: $(PROGS)
 
-client: client.o connection.o
+client: client.o ../connection.o
 
 
 # Phony targets
