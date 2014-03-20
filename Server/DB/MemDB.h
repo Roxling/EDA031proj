@@ -14,17 +14,17 @@ class MemDB: public Database{
 public:
 	MemDB();
 
-	virtual void addNewsGroup(NewsGroup* ng) override;
+	virtual void addNewsGroup(shared_ptr<NewsGroup> ng) override;
 	virtual void removeNewsGroup(string id) override;
 
 	virtual string listNewsGroups() override;
 	virtual string listArticles(string ngID) override;
 	virtual string readArticle(string ngID,string artID) override;
 	
-	virtual void addArticle(string ngID,Article a) override;
+	virtual void addArticle(string ngID,shared_ptr<Article> a) override;
 	virtual void removeArticle(string ngID,string artID) override;
 private:
-	unordered_map<string,NewsGroup*> newsgroups;
+	unordered_map<string,shared_ptr<NewsGroup>> newsgroups;
 };
 
 #endif

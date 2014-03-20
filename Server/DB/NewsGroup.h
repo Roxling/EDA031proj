@@ -8,14 +8,17 @@
 
 using namespace std;
 
-class NewsGroup{	
+class NewsGroup{
 public:
-	NewsGroup(); //destructor needed?
-	void addArticle(Article* a);
+	NewsGroup(string idarg); //destructor needed?
+	void addArticle(shared_ptr<Article> a);
+	void removeArticle(string artID);
 	bool contains(string id);
 	string getArticle(string id);
+	string listArticles();
+	string id;
 private:
-	unordered_map<string,Article*> articles;
+	unordered_map<string,shared_ptr<Article>> articles;
 };
 
 #endif

@@ -4,19 +4,20 @@
 #include "Article.h"
 #include "NewsGroup.h"
 #include <string>
+#include <memory>
 using namespace std;
 
 class Database{
 
 public:
-	virtual void addNewsGroup(NewsGroup* ng) = 0;
+	virtual void addNewsGroup(shared_ptr<NewsGroup> ng) = 0;
 	virtual void removeNewsGroup(string id) = 0;
 
 	virtual string listNewsGroups() = 0;
 	virtual string listArticles(string ngID) = 0;
 	virtual string readArticle(string ngID,string artID) = 0;
 	
-	virtual void addArticle(string ngID,Article a) = 0;
+	virtual void addArticle(string ngID,shared_ptr<Article> a) = 0;
 	virtual void removeArticle(string ngID,string artID) = 0;
 private:
 	
