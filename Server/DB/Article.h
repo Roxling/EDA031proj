@@ -1,20 +1,20 @@
 #ifndef ARTICLE_H
 #define ARTICLE_H
 #include <string>
-
+#include "date.h"
 
 using namespace std;
 
 class Article{
 	friend class NewsGroup;
 public:	
-	Article(string idarg,string authorarg,string titlearg,string textarg);
+	Article(string authorarg,string titlearg,string textarg);
 private:	
 	string id;
 	string author;
 	string title;
 	string text;
-	string timestamp;
+	Date timestamp;
 	
 };
 

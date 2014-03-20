@@ -2,6 +2,7 @@
 #include "Article.h"
 #include "NewsGroup.h"
 #include "Database.h"
+#include "date.h"
 #include <string>
 #include <iostream>
 
@@ -20,7 +21,8 @@ void MemDB::removeNewsGroup(string id){
 string MemDB::listNewsGroups(){
 	string list = "";
 	for(auto pair : newsgroups){
-		list += (pair.second)->id +"\n";
+		auto ng = pair.second;
+		list += ng->name+" - ID: "+ng->id +" Created "+ng->timestamp.print()+"\n";
 	}
 	return list;	
 }

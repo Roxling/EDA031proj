@@ -16,15 +16,12 @@ LDFLAGS =   -g
 
 PROGS = newsserver
 all:$(PROGS)
-	#cd DB; make -f Makefile2;
 	
 
 # Create the library; ranlib is for Darwin and maybe other systems.
-# Doesn't seem to do any damage on other systems.
-		
-newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o DB/MemDB.o
+# Doesn't seem to do any damage on other systems.	
 
-MemDB: DB/Article.o DB/NewsGroup.o DB/Date.o
+newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o DB/MemDB.o DB/Article.o DB/NewsGroup.o DB/date.o
 
 CommandFactory: Commands/Command.o Commands/no_command.o
 
@@ -36,6 +33,7 @@ CommandFactory: Commands/Command.o Commands/no_command.o
 clean:
 	rm -f *.o $(PROGS)
 	rm -f *.d $(PROGS)
+	cd DB;make clean;
 
 # Generate dependencies in *.d files
 %.d: %.cc
