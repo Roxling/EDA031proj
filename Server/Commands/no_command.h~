@@ -8,7 +8,6 @@ class no_command : public Command {
 public:
 	virtual string exec(std::string& args) override{
 		return "Faulty command!";
-		//TODO Terminate client
 	};
 };
 

@@ -17,6 +17,7 @@ unique_ptr<Command> CommandFactory::createcommand(char cmd){
 		switch (cmd-'0')
 		{
 		case p.COM_LIST_NG:  {//list newgroup
+			cout << "did we get here?" << endl;
 			unique_ptr<Command> c(new list_ng_command());
 			return  c;
 		    	break; }

@@ -3,7 +3,6 @@
 
 #include "Command.h"
 #include <string>
-#include <memory>
 #include "../../protocol.h"
 
 using namespace std;

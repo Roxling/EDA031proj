@@ -69,6 +69,7 @@ int main(int argc, char* argv[]){
 				cout << cmdstring << endl;
 				unique_ptr<Command> c = cf.createcommand(*((cmdstring.substr(0,1)).c_str()));
 				string reply = c->exec(cmdstring);
+				cout << reply << endl;
 				writeString(conn, reply);
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
