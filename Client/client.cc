@@ -51,11 +51,13 @@ int main(int argc, char* argv[]) {
 	
 	cout << "Type a command: ";
 	string command;
-	while (cin >> command) {
+	unsigned char ch = 0;
+	while (getline(cin,command)) {
 		try {
+			command += ch;
 			writeCommand(conn, command);
 			string reply = readString(conn);
-			cout << " " << reply << endl;
+			cout << reply << endl;
 		} catch (ConnectionClosedException&) {
 			cout << " no reply from server. Exiting." << endl;
 			exit(1);

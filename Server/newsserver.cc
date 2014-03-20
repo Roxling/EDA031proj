@@ -20,6 +20,7 @@ using byte = char;
 void writeString(const shared_ptr<Connection>& conn, const string& s) {
 	for (char c : s) {
 		conn->write(c);
+		
 	}
 	conn->write('$');
 }
@@ -28,17 +29,10 @@ string readcommand(const shared_ptr<Connection>& conn){
 
 	string cmdstring;
 	
-	byte b = conn->read();
-	/*
-	while(b != 8){
-	cout << b << endl;
-	cmdstring += b;
-	b = conn->read();
+	while(unsigned char b = conn->read()){
+		cmdstring += b;
 	}
-	cout << "freee!" << endl;
 	
-	*/
-	cmdstring += b;
 	return cmdstring;
 	
 }
@@ -72,11 +66,10 @@ int main(int argc, char* argv[]){
 		if (conn != nullptr) {
 			try {
 				string cmdstring = readcommand(conn);
-				byte com = 0;
-				//com = substr(......TODO
+				cout << cmdstring << endl;
 				string args;	
-				Command c = cf.createcommand(com);
-				c.exec(args);
+				//Command c = cf.createcommand(com);
+				//c.exec(args);
 				writeString(conn, "ServerSvar");
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
