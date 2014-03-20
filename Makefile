@@ -25,10 +25,17 @@ all:
 
 # Standard clean
 clean:
-	rm -f *.o $(PROGS)
-	rm -f *.d $(PROGS)
+	rm -f *.o* $(PROGS)
+	rm -f *.d* $(PROGS)
+	rm -f *~* $(PROGS)
+
 	cd Client; make clean
 	cd Server; make clean
+
+cleangit:
+	git rm *.o*;
+	git rm *.d*;
+	git rm *~*;
 
 # Generate dependencies in *.d files
 %.d: %.cc
