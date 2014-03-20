@@ -67,18 +67,16 @@ int main(int argc, char* argv[]){
 
 	CommandFactory cf;
 
-while (true) {
+	while (true) {
 		auto conn = server.waitForActivity();
 		if (conn != nullptr) {
 			try {
 				string cmdstring = readcommand(conn);
-
 				byte com = 0;
 				//com = substr(......TODO
 				string args;	
 				Command c = cf.createcommand(com);
 				c.exec(args);
-				
 				writeString(conn, "ServerSvar");
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);

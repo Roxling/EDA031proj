@@ -77,7 +77,7 @@ while (true) {
 				//com = substr(......TODO
 				string args;	
 				Command c = cf.createcommand(com);
-				//c.exec(args);
+				c.exec(args);
 				
 				writeString(conn, "ServerSvar");
 			} catch (ConnectionClosedException&) {
