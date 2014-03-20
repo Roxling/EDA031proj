@@ -14,20 +14,15 @@ LDFLAGS =   -g
 #CXXFLAGS += -stdlib=libc++
 #LDFLAGS += -stdlib=libc++
 
-PROGS = newsserver
-all:$(PROGS)
-	#cd DB; make -f Makefile2;
-	
+PROGS = Databasetest
+
+all:   $(PROGS)
 
 # Create the library; ranlib is for Darwin and maybe other systems.
 # Doesn't seem to do any damage on other systems.
-		
-newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o DB/MemDB.o
 
-MemDB: DB/Article.o DB/NewsGroup.o DB/Date.o
-
-CommandFactory: Commands/Command.o Commands/no_command.o
-
+all: $(PROGS)
+Databasetest: MemDB.o Article.o NewsGroup.o
 
 # Phony targets
 .PHONY: all clean
@@ -40,7 +35,7 @@ clean:
 # Generate dependencies in *.d files
 %.d: %.cc
 	@set -e; rm -f $@; \
-         $(CPP) -MM $(CXXFLAGS) $< > $@.$$$$; \
+         $(CPP) -MM $(CPPFLAGS) -std=c++11 $< > $@.$$$$; \
          sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
          rm -f $@.$$$$
 

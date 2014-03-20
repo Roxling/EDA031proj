@@ -5,6 +5,7 @@
 #include "Commands/CommandFactory.h"
 #include "DB/Database.h"
 
+#include "DB/MemDB.h" //temp?
 
 #include <memory>
 #include <iostream>
@@ -41,7 +42,7 @@ string readcommand(const shared_ptr<Connection>& conn){
 
 int main(int argc, char* argv[]){
 
-	unique_ptr<Database> db(new Database());
+	unique_ptr<Database> db(new MemDB()); //Make generalistic
 
 	if (argc != 2) {
 		cerr << "Usage: myserver port-number" << endl;
