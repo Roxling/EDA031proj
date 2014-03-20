@@ -6,8 +6,8 @@
 
 class create_art_command : public Command {
 public:
-	virtual void exec(std::string& args) override{
-	//Todo
+	virtual string exec(std::string& args) override{
+	return "create_art";
 	};
 };
 
