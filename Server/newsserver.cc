@@ -3,6 +3,7 @@
 #include "../connectionclosedexception.h"
 #include "../protocol.h"
 #include "Commands/CommandFactory.h"
+#include "DB/Database.h"
 
 
 #include <memory>
@@ -40,6 +41,8 @@ string readcommand(const shared_ptr<Connection>& conn){
 
 int main(int argc, char* argv[]){
 
+	unique_ptr<Database> db(new Database());
+
 	if (argc != 2) {
 		cerr << "Usage: myserver port-number" << endl;
 		exit(1);
@@ -68,7 +71,7 @@ int main(int argc, char* argv[]){
 				string cmdstring = readcommand(conn);
 				cout << cmdstring << endl;
 				unique_ptr<Command> c = cf.createcommand(*((cmdstring.substr(0,1)).c_str()));
-				string reply = c->exec(cmdstring);
+				string reply = c->exec(cmdstring,db);
 				writeString(conn, reply);
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);

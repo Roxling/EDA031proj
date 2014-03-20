@@ -3,11 +3,10 @@
 
 
 #include "Command.h"
-#include "Database.h"
 
 class list_ng_command : public Command {
 public:
-	virtual string exec(std::string& args) override{
+	virtual string exec(std::string& args,db) override{
 	args += 'a'; //warning suppression
 	return "listng";
 	//return myDatabase.listNewsGroups();

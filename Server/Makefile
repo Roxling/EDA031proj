@@ -38,7 +38,7 @@ clean:
 # Generate dependencies in *.d files
 %.d: %.cc
 	@set -e; rm -f $@; \
-         $(CPP) -MM $(CPPFLAGS) $< > $@.$$$$; \
+         $(CPP) -MM $(CXXFLAGS) $< > $@.$$$$; \
          sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
          rm -f $@.$$$$
 

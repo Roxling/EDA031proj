@@ -6,7 +6,7 @@
 class Command{
 public:
 	Command(){}
-	virtual std::string exec(std::string& args) = 0;
+	virtual std::string exec(std::string& args,db) = 0;
 };
 #endif
 
