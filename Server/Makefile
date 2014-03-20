@@ -33,6 +33,7 @@ CommandFactory: Command.o no_command.o
 # Standard clean
 clean:
 	rm -f *.o $(PROGS)
+	rm -f *.d $(PROGS)
 
 # Generate dependencies in *.d files
 %.d: %.cc
