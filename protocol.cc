@@ -35,5 +35,5 @@ int Protocol::getByte(string command){
 	auto it = protocol.find(command);
 	if(it != protocol.end())
 		return stoi(it->second);
- 	return -1;
+ 	return ERR_NOT_PROTOCOL;
 }

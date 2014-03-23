@@ -12,6 +12,7 @@
 #include <string>
 #include <stdexcept>
 #include <cstdlib>
+#include <vector>
 
 using namespace std;
 
@@ -22,19 +23,21 @@ static Protocol protocol;
  * Send a string to a client.
  */
 void writeString(const shared_ptr<Connection>& conn, vector<byte>& reply) {
-	for (char& c : reply) {
-		conn->write(c);
-		
+	for (byte b : reply) {
+		conn->write(b);
 	}
-	conn->write('$');
 }
 
-Array<byte> readcommand(const shared_ptr<Connection>& conn){
-	Array<byte> comm;
-	while(byte b = conn->read() != protocol.COM_END){
-		comm.push_back(b)
-	}
-	comm.push_back(protocol.COM_END);
+vector<byte> readcommand(const shared_ptr<Connection>& conn){
+	vector<byte> comm;
+	byte b; 	
+	do
+	{
+		b = conn->read();
+		comm.push_back(b);
+	}while(b != protocol.COM_END);
+
+	//comm.push_back(protocol.COM_END);
 	return comm;
 	
 }
@@ -42,7 +45,7 @@ Array<byte> readcommand(const shared_ptr<Connection>& conn){
 
 int main(int argc, char* argv[]){
 
-	unique_ptr<Database> db(new MemDB()); //Make generalistic
+	shared_ptr<Database> db(new MemDB()); //Make generalistic
 
 	if (argc != 2) {
 		cerr << "Usage: myserver port-number" << endl;
@@ -70,11 +73,11 @@ int main(int argc, char* argv[]){
 		if (conn != nullptr) {
 			try {
 				auto cmd = readcommand(conn);
+				cmd.push_back(protocol.ANS_END);
+				//unique_ptr<Command> c = cf.createcommand(cmd);
 
-				unique_ptr<Command> c = cf.createcommand(cmd);
-
-				auto reply = c->exec();
-				writeString(conn, reply);
+				//auto reply = c->exec();
+				writeString(conn, cmd);
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
 				cout << "Client closed connection" << endl;

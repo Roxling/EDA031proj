@@ -1,37 +1,72 @@
 #include "../connection.h"
 #include "../connectionclosedexception.h"
+#include "../protocol.h"
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <stdexcept>
 #include <cstdlib>
+#include <vector>
 
 using namespace std;
 
+using byte = char;
+static Protocol protocol;
 /*
  * Send a string to the server.
  */
-void writeCommand(const Connection& conn, string command) {
-	for(char c : command){	
-		conn.write(c);
+void writeCommand(const Connection& conn, vector<byte>& command) {
+	for(byte b : command){
+		cout << "Send: " << b-0 << endl;		
+		conn.write(b);
 	}
 }
 
-unsigned char[] parseCommand(string command){
-	string result = "";
-	unsigned char ch = 0;
+vector<byte> parseCommand(string command){
+	vector<byte> comm;
+	istringstream iss(command);
+	string word;
+	while(iss >> word){
+		byte b = protocol.getByte(word);
+		if(b != protocol.ERR_NOT_PROTOCOL){
+			comm.push_back(b);
+		}else{
+			for(byte ch : word){
+				comm.push_back(ch);
+			}
+		}
+		if(b == protocol.PAR_STRING || b == protocol.PAR_NUM){
+			if(iss >> word){
+				try{
+					int nbr = stoi(word);
+					comm.push_back(nbr >> 24);
+    				comm.push_back(nbr >> 16);
+    				comm.push_back(nbr >>  8);
+    				comm.push_back(nbr);
+				}catch(out_of_range& e){
+					cout << "Parse int to byte[] error" << endl;
+				}
+			}
+		}
+	}
+	if(comm.empty() || comm.back() != protocol.COM_END){
+		comm.push_back(protocol.COM_END);
+	}
 	
-	return result+ch;
+	return comm;
 }	
 /*
  * Read a string from the server.
  */
 string readString(const Connection& conn) {
 	string s;
-	char ch;
-	while ((ch = conn.read()) != '$') {
-		s += ch;
+	byte b;
+	while ((b = conn.read()) != protocol.ANS_END) {
+		cout <<"Ans: " << b-0 << endl;
+		s += b;
 	}
+	
 	return s;
 }
 
@@ -60,9 +95,11 @@ int main(int argc, char* argv[]) {
 
 	while (getline(cin,command)) {
 		try {
-			writeCommand(conn, parse_command(command));
+			auto comm = parseCommand(command); 
+			writeCommand(conn, comm);
 			string reply = readString(conn);
-			cout << reply << endl;
+			//cout << reply << endl;
+			cout << "Type a command: ";
 		} catch (ConnectionClosedException&) {
 			cout << " no reply from server. Exiting." << endl;
 			exit(1);

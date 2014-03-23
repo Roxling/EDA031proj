@@ -11,11 +11,11 @@ using namespace std;
 using byte = char;
 class CommandFactory{
 public:
-	CommandFactory(Database& db): database(db){}
+	CommandFactory(shared_ptr<Database> db): database(db){}
 	std::unique_ptr<Command> createcommand(char cmd);
 private:
 	Protocol p;
-	Database database;
+	shared_ptr<Database> database;
 };
 
 
