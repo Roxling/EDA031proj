@@ -8,7 +8,7 @@ public:
 	virtual string exec(std::string& args, unique_ptr<Database>& db) override{
 	//args += 'a'; //warning suppression
 	args = getArgs(args);
-	return "listng \n" + "getArgs() = " + args; //+ db->listNewsGroups();
+	return "listng \n" + args; //+ db->listNewsGroups();
 	};
 };
 

@@ -13,10 +13,13 @@ public:
 	
 	string getArgs(string cmdLine){
 		string args;
+		/*
 		for(string::iterator it = (cmdLine.begin() +=2) ; it != cmdLine.end(); ++it) {
 			args+= *it;	
 			return args;
 		}
+		*/
+		return "";
 	};
 	
 	
