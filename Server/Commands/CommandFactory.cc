@@ -24,6 +24,7 @@ unique_ptr<Command> CommandFactory::createcommand(vector<byte> cmd){
 		switch (cmd[0]-'0')
 		{
 		case p.COM_LIST_NG:  {//list newgroup
+			cout << "Creating List NG Command" << endl;
 			unique_ptr<Command> c(new list_ng_command(database));
 			return  c;
 		    	break; }
@@ -33,7 +34,13 @@ unique_ptr<Command> CommandFactory::createcommand(vector<byte> cmd){
 			
 			for(int i = 0; cmd[i] != p.COM_END; ++i){
 			//Parse!
+			s = cmd[4];
+			int length = stoi(s);
+
+			for( int j = 6; j <= 6+ length ; ++j)
+			  s += cmd[j];
 			}
+			cout << "parameter: " <<  s << endl;
 
 			unique_ptr<Command> c(new create_ng_command(database,s));
 			return  c;
