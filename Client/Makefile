@@ -23,7 +23,7 @@ all:   $(PROGS)
 
 all: $(PROGS)
 
-client: client.o ../connection.o
+client: client.o ../connection.o ../protocol.o
 
 
 # Phony targets
@@ -36,7 +36,7 @@ clean:
 # Generate dependencies in *.d files
 %.d: %.cc
 	@set -e; rm -f $@; \
-         $(CPP) -MM $(CPPFLAGS) $< > $@.$$$$; \
+         $(CXX) -MM $(CXXFLAGS) $< > $@.$$$$; \
          sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
          rm -f $@.$$$$
 

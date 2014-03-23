@@ -16,7 +16,6 @@ LDFLAGS =   -g
 
 
 all:
-	
 	cd Client; make
 	cd Server; make
 	
@@ -40,7 +39,7 @@ cleangit:
 # Generate dependencies in *.d files
 %.d: %.cc
 	@set -e; rm -f $@; \
-         $(CPP) -MM $(CPPFLAGS) $< > $@.$$$$; \
+         $(CXX) -MM $(CXXFLAGS) $< > $@.$$$$; \
          sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
          rm -f $@.$$$$
 

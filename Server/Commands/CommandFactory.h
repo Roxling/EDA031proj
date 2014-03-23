@@ -11,7 +11,8 @@ using byte = char;
 class CommandFactory{
 public:
 	std::unique_ptr<Command> createcommand(char cmd);
-private: struct Protocol p;
+private:
+	Protocol p;
 
 };
 
