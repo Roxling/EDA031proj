@@ -22,8 +22,8 @@ all:   $(PROGS)
 # Doesn't seem to do any damage on other systems.
 
 all: $(PROGS)
-
-client: client.o ../connection.o ../protocol.o
+ 
+client: client.o ../connection.o ../protocol.o Replies/ReplyFactory.o Replies/list_ng_reply.o
 
 
 # Phony targets

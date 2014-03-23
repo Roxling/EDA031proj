@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <cstdlib>
 #include <vector>
+#include "Replies/Reply.h"
+#include "Replies/ReplyFactory.h"
 
 using namespace std;
 
@@ -59,15 +61,15 @@ vector<byte> parseCommand(string command){
 /*
  * Read a string from the server.
  */
-string readString(const Connection& conn) {
-	string s;
+vector<byte> readReply(const Connection& conn) {
+	vector<byte> rep;
 	byte b;
 	while ((b = conn.read()) != protocol.ANS_END) {
 		cout <<"Ans: " << b-0 << endl;
-		s += b;
+		rep.push_back(b);
 	}
 	
-	return s;
+	return rep;
 }
 
 int main(int argc, char* argv[]) {
@@ -89,7 +91,7 @@ int main(int argc, char* argv[]) {
 		cerr << "Connection attempt failed" << endl;
 		exit(1);
 	}
-	
+	ReplyFactory rf;
 	cout << "Type a command: ";
 	string command;
 
@@ -97,8 +99,8 @@ int main(int argc, char* argv[]) {
 		try {
 			auto comm = parseCommand(command); 
 			writeCommand(conn, comm);
-			string reply = readString(conn);
-			//cout << reply << endl;
+			auto reply = readReply(conn);
+			cout << rf.createReply(reply)->exec() << endl;
 			cout << "Type a command: ";
 		} catch (ConnectionClosedException&) {
 			cout << " no reply from server. Exiting." << endl;
