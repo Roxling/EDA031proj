@@ -1,6 +1,6 @@
 #include "CommandFactory.h"
 
-/*
+
 #include "create_ng_command.h"
 #include "delete_ng_command.h"
 
@@ -9,7 +9,6 @@
 #include "delete_art_command.h"
 #include "get_art_command.h"
 
-*/
 
 #include "list_ng_command.h"
 #include "no_command.h"
@@ -17,6 +16,7 @@
 #include <iostream>
 
 using namespace std;
+
 unique_ptr<Command> CommandFactory::createcommand(char cmd){
 		
 		switch (cmd-'0')
@@ -25,7 +25,7 @@ unique_ptr<Command> CommandFactory::createcommand(char cmd){
 			unique_ptr<Command> c(new list_ng_command());
 			return  c;
 		    	break; }
-		/*
+		
 		case p.COM_CREATE_NG:{
 			unique_ptr<Command> c(new create_ng_command());
 			return  c;
@@ -50,7 +50,6 @@ unique_ptr<Command> CommandFactory::createcommand(char cmd){
 			unique_ptr<Command> c(new get_art_command());
 			return  c;	
 			break;}
-			*/
 		default:
 			unique_ptr<Command> c(new no_command());
 			return  c;

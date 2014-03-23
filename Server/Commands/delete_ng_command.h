@@ -6,8 +6,9 @@
 
 class delete_ng_command : public Command {
 public:
-	virtual string exec(std::string& args) override{
-	return "0";
+	virtual string exec(std::string& args, unique_ptr<Database>& db) override{
+	db->removeNewsGroup(getArgs(args));
+	return "removed" + getArgs();
 	};
 };
 
