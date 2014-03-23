@@ -23,7 +23,7 @@ Date::Date() {
 Date::Date(int y, int m, int d) : year(y), month(m), day(d) {}
 
 bool Date::operator<(Date& rhs){
-	return false;
+	return false; //sort on timer in constructor
 }
 
 string Date::print(){

@@ -7,7 +7,14 @@
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
 
+#include <unordered_map>
+#include <string>
+
+using namespace std;
+
 struct Protocol {
+public:
+	Protocol();
 	enum {
 		/* Command codes, client -> server */
 		COM_LIST_NG    = 1, // list newsgroups
@@ -40,6 +47,13 @@ struct Protocol {
 		ERR_NG_DOES_NOT_EXIST  = 51, // newsgroup does not exist
 		ERR_ART_DOES_NOT_EXIST = 52  // article does not exist
 	};
+	string getCommand(int b);
+	int getByte(string command);
+
+private:
+	unordered_map<string,string> protocol;
 };
+
+
 
 #endif
