@@ -73,10 +73,10 @@ int main(int argc, char* argv[]){
 		if (conn != nullptr) {
 			try {
 				auto cmd = readcommand(conn);
-				cmd.push_back(protocol.ANS_END);
-				//unique_ptr<Command> c = cf.createcommand(cmd);
+				//cmd.push_back(protocol.ANS_END);
+				unique_ptr<Command> c = cf.createcommand(cmd);
+				auto reply = c->exec();
 
-				//auto reply = c->exec();
 				writeString(conn, cmd);
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
