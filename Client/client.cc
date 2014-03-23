@@ -17,6 +17,12 @@ void writeCommand(const Connection& conn, string command) {
 	}
 }
 
+unsigned char[] parseCommand(string command){
+	string result = "";
+	unsigned char ch = 0;
+	
+	return result+ch;
+}	
 /*
  * Read a string from the server.
  */
@@ -51,11 +57,10 @@ int main(int argc, char* argv[]) {
 	
 	cout << "Type a command: ";
 	string command;
-	unsigned char ch = 0;
+
 	while (getline(cin,command)) {
 		try {
-			command += ch;
-			writeCommand(conn, command);
+			writeCommand(conn, parse_command(command));
 			string reply = readString(conn);
 			cout << reply << endl;
 		} catch (ConnectionClosedException&) {

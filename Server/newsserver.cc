@@ -16,26 +16,26 @@
 using namespace std;
 
 using byte = char;
+
+static Protocol protocol;
 /*
  * Send a string to a client.
  */
-void writeString(const shared_ptr<Connection>& conn, const string& s) {
-	for (char c : s) {
+void writeString(const shared_ptr<Connection>& conn, vector<byte>& reply) {
+	for (char& c : reply) {
 		conn->write(c);
 		
 	}
 	conn->write('$');
 }
 
-string readcommand(const shared_ptr<Connection>& conn){
-
-	string cmdstring;
-	
-	while(unsigned char b = conn->read()){
-		cmdstring += b;
+Array<byte> readcommand(const shared_ptr<Connection>& conn){
+	Array<byte> comm;
+	while(byte b = conn->read() != protocol.COM_END){
+		comm.push_back(b)
 	}
-	
-	return cmdstring;
+	comm.push_back(protocol.COM_END);
+	return comm;
 	
 }
 
@@ -63,18 +63,17 @@ int main(int argc, char* argv[]){
 		exit(1);
 	}
 
-	CommandFactory cf;
+	CommandFactory cf(db);
 
 	while (true) {
 		auto conn = server.waitForActivity();
 		if (conn != nullptr) {
 			try {
-				string cmdstring = readcommand(conn);
-				cout << cmdstring << endl;
+				auto cmd = readcommand(conn);
 
-				unique_ptr<Command> c = cf.createcommand(*	((cmdstring.substr(0,1)).c_str()));
+				unique_ptr<Command> c = cf.createcommand(cmd);
 
-				string reply = c->exec(cmdstring,db);
+				auto reply = c->exec();
 				writeString(conn, reply);
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
