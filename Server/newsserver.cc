@@ -37,7 +37,6 @@ vector<byte> readcommand(const shared_ptr<Connection>& conn){
 		comm.push_back(b);
 	}while(b != protocol.COM_END);
 
-	//comm.push_back(protocol.COM_END);
 	return comm;
 	
 }
