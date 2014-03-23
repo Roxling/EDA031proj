@@ -71,7 +71,9 @@ int main(int argc, char* argv[]){
 			try {
 				string cmdstring = readcommand(conn);
 				cout << cmdstring << endl;
-				unique_ptr<Command> c = cf.createcommand(*((cmdstring.substr(0,1)).c_str()));
+
+				unique_ptr<Command> c = cf.createcommand(*	((cmdstring.substr(0,1)).c_str()));
+
 				string reply = c->exec(cmdstring,db);
 				writeString(conn, reply);
 			} catch (ConnectionClosedException&) {
