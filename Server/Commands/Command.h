@@ -10,7 +10,6 @@ class Command{
 public:
 	Command(){}
 	virtual string exec(string& args, unique_ptr<Database>& db) = 0;
-
 	
 	string getArgs(string cmdLine){
 		string args;

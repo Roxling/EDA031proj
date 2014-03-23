@@ -17,14 +17,9 @@ LDFLAGS =   -g
 PROGS = newsserver
 all:$(PROGS)
 	
-
-# Create the library; ranlib is for Darwin and maybe other systems.
-# Doesn't seem to do any damage on other systems.	
-
 newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o DB/MemDB.o DB/Article.o DB/NewsGroup.o DB/date.o
 
 CommandFactory: Commands/Command.o Commands/no_command.o Commands/create_ng_command.o Commands/list_ng_command.o
-
 
 # Phony targets
 .PHONY: all clean
