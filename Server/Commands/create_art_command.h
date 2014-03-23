@@ -6,8 +6,7 @@
 
 class create_art_command : public Command {
 public:
-	virtual string exec(std::string& args, unique_ptr<Database>& db) override{
-	args += 'a'; //warning suppression
+	virtual string exec() override{
 	return "listng \n" + db->listNewsGroups();
 	};
 };

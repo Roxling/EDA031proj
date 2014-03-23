@@ -5,10 +5,10 @@
 
 class create_ng_command : public Command {
 public:
-	virtual string exec(std::string& args, unique_ptr<Database>& db) override{
+	virtual string exec() override{
 	shared_ptr<NewsGroup> ng(new NewsGroup(getArgs(args)));
 	db->addNewsGroup(ng);
-	return "added newsgroup " + getArgs(args); 
+	return "added newsgroup " 
 	};
 };
 

@@ -19,7 +19,8 @@ all:$(PROGS)
 	
 newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o DB/MemDB.o DB/Article.o DB/NewsGroup.o DB/date.o ../protocol.o
 
-CommandFactory: Commands/CommandFactory.o Commands/Command.o Commands/no_command.o Commands/create_ng_command.o Commands/list_ng_command.o ../protocol.o
+CommandFactory: Commands/CommandFactory.o ../protocol.o
+
 
 # Phony targets
 .PHONY: all clean

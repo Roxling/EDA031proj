@@ -5,10 +5,10 @@
 
 class list_ng_command : public Command {
 public:
-	virtual string exec(std::string& args, unique_ptr<Database>& db) override{
-	//args += 'a'; //warning suppression
-	args = getArgs(args);
-	return "listng \n" + args; //+ db->listNewsGroups();
+	virtual string exec() override{
+	args += 'a'; //warning suppression
+
+	return "listng \n" + db->listNewsGroups();
 	};
 };
 
