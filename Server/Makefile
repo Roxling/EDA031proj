@@ -6,7 +6,7 @@ CC  = g++
 # Define preprocessor, compiler, and linker flags. Uncomment the # lines
 # if you use clang++ and wish to use libc++ instead of libstdc++.
 CXXFLAGS =  -g -O2 -Wall -W -pedantic-errors
-CXXFLAGS += -Wmissing-braces -Wparentheses -Wold-style-cast 
+CXXFLAGS += -Wmissing-braces -Wparentheses -Wold-style-cast
 CXXFLAGS += -std=c++11 
 CXXFLAGS += -g
 LDFLAGS =   -g 
@@ -42,6 +42,8 @@ clean:
          sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
          rm -f $@.$$$$
 
+
 # Include the *.d files
 SRC = $(wildcard *.cc)
 include $(SRC:.cc=.d)
+
