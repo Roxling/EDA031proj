@@ -3,11 +3,14 @@
 
 
 #include "Reply.h"
+#include <iostream>
 
 class no_reply : public Reply {
 public:
+	no_reply(){}
 	virtual string exec() override{
-		return "No readable reply from server, protocol broken.";
+		std::cout << "No readable reply from server, protocol broken." << std::endl;
+		exit(-1);
 	}
 };
 

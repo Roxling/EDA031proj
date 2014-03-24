@@ -10,12 +10,11 @@ using byte = char;
 
 class list_ng_reply : public Reply {
 public:
-	list_ng_reply(vector<byte>& c);
+	list_ng_reply(const Connection& conn);
 	virtual string exec() override{
 		return ans;
 	}
 private:
-	vector<byte>& comm;
 	string ans;
 	unsigned int minsize = 7;
 };

@@ -1,21 +1,19 @@
 #include "ReplyFactory.h"
 #include "no_reply.h"
 #include "list_ng_reply.h"
-
+#include "../../connection.h"
 #include <iostream>
 #include <vector>
 
 using namespace std;
 using byte = char;
 
-unique_ptr<Reply> ReplyFactory::createReply(vector<byte>& comm){
-	if(comm.empty())
-		return unique_ptr<Reply>(new no_reply());
+unique_ptr<Reply> ReplyFactory::createReply(const Connection& conn){
 
-	byte b = comm.front();
+	byte b = conn.read();
 	switch(b-0){
 	case protocol.ANS_LIST_NG:
-		return unique_ptr<Reply>(new list_ng_reply(comm));
+		return unique_ptr<Reply>(new list_ng_reply(conn));
 		break;
 	}
 

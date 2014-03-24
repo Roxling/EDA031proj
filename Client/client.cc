@@ -58,19 +58,7 @@ vector<byte> parseCommand(string command){
 	
 	return comm;
 }	
-/*
- * Read a string from the server.
- */
-vector<byte> readReply(const Connection& conn) {
-	vector<byte> rep;
-	byte b;
-	while ((b = conn.read()) != protocol.ANS_END) {
-		cout <<"Ans: " << b-0 << endl;
-		rep.push_back(b);
-	}
-	
-	return rep;
-}
+
 
 int main(int argc, char* argv[]) {
 	if (argc != 3) {
@@ -94,13 +82,11 @@ int main(int argc, char* argv[]) {
 	ReplyFactory rf;
 	cout << "Type a command: ";
 	string command;
-
 	while (getline(cin,command)) {
 		try {
 			auto comm = parseCommand(command); 
 			writeCommand(conn, comm);
-			auto reply = readReply(conn);
-			cout << rf.createReply(reply)->exec() << endl;
+			cout << rf.createReply(conn)->exec() << endl;
 			cout << "Type a command: ";
 		} catch (ConnectionClosedException&) {
 			cout << " no reply from server. Exiting." << endl;

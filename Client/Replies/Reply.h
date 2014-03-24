@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "../../protocol.h"
+#include "../../connection.h"
 
 using namespace std;
 using byte = char;

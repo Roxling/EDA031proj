@@ -6,8 +6,8 @@
 
 using byte = char;
 
-list_ng_reply::list_ng_reply(vector<byte>& c): comm(c){
-	ans = "";
+list_ng_reply::list_ng_reply(const Connection& conn){
+	/*ans = "";
 	if(comm.size() >= minsize){
 		if(comm[1] == protocol.PAR_NUM){				
 			int numargs = readNumber(comm,2);
@@ -30,6 +30,6 @@ list_ng_reply::list_ng_reply(vector<byte>& c): comm(c){
 			}
 		}
 	}
-	
+	*/
 }
 	
