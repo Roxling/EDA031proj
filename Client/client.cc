@@ -10,6 +10,7 @@
 #include <vector>
 #include "Replies/Reply.h"
 #include "Replies/ReplyFactory.h"
+#include "Replies/protocolbrokenexception.h"
 
 using namespace std;
 
@@ -80,17 +81,20 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	}
 	ReplyFactory rf;
-	cout << "Type a command: ";
+	cout << "Type a commands: \n >> ";
 	string command;
 	while (getline(cin,command)) {
 		try {
 			auto comm = parseCommand(command); 
 			writeCommand(conn, comm);
 			cout << rf.createReply(conn)->print() << endl;
-			cout << ">>";
+			cout << ">> ";
 		} catch (ConnectionClosedException&) {
 			cout << " no reply from server. Exiting." << endl;
 			exit(1);
+		} catch(ProtocolBrokenException&){
+			cout << "Sever not following protocol. Can not read answer." << endl;
+			while(conn.read() != protocol.ANS_END); //Reading until end.
 		}
 	}
 }
