@@ -28,6 +28,7 @@ void writeString(const shared_ptr<Connection>& conn, vector<byte>& reply) {
 	}
 }
 
+/*
 vector<byte> readcommand(const shared_ptr<Connection>& conn){
 	vector<byte> comm;
 	byte b; 	
@@ -40,7 +41,7 @@ vector<byte> readcommand(const shared_ptr<Connection>& conn){
 	return comm;
 	
 }
-
+*/
 
 int main(int argc, char* argv[]){
 
@@ -71,15 +72,17 @@ int main(int argc, char* argv[]){
 		auto conn = server.waitForActivity();
 		if (conn != nullptr) {
 			try {
-				auto cmd = readcommand(conn);
-				//cmd.push_back(protocol.ANS_END);
-				unique_ptr<Command> c = cf.createcommand(cmd);
+				unique_ptr<Command> c = cf.createcommand(conn);
 				auto reply = c->exec();
 
 				writeString(conn, reply);
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
 				cout << "Client closed connection" << endl;
+			}
+			catch (ProtocolBrokenException){
+				cout << "Client broke protocol. Kill them." << endl;
+				server.deregisterConnection(conn);
 			}
 		} else {
 			conn = make_shared<Connection>();

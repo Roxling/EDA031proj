@@ -12,24 +12,23 @@
 
 #include "list_ng_command.h"
 #include "no_command.h"
-
+#include "../../connection.h"
 
 #include <iostream>
 
 using namespace std;
 
-unique_ptr<Command> CommandFactory::createcommand(vector<byte> cmd){
-
-		cout << "command: " << cmd[0]-0 << endl;
-		switch (cmd[0]-0)
+unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection> conn){
+		char temp = conn->read();
+		cout << "command: " << temp-0 << endl;
+		switch (temp-0)
 		{
 		case p.COM_LIST_NG:  {//list newgroup
 			cout << "Creating List NG Command" << endl;
-			unique_ptr<Command> c(new list_ng_command(database));
-			cout << "returning NG command" << endl;			
+			unique_ptr<Command> c(new list_ng_command(database, conn));			
 			return  c;
 		    	break; }
-		
+		/*
 		case p.COM_CREATE_NG:{
 			string s;
 			
@@ -46,7 +45,7 @@ unique_ptr<Command> CommandFactory::createcommand(vector<byte> cmd){
 			unique_ptr<Command> c(new create_ng_command(database,s));
 			return  c;
 		    	break;}
-		/*
+		
 		case p.COM_DELETE_NG:{
 			unique_ptr<Command> c(new delete_ng_command(database));
 			return  c;
@@ -76,3 +75,9 @@ unique_ptr<Command> CommandFactory::createcommand(vector<byte> cmd){
 		
 		
 }
+/*
+int readNumber(const Connection& conn) {
+		return (conn.read() << 24) | (conn.read() << 16) | (conn.read() << 8) | conn.read();
+	}
+
+*/

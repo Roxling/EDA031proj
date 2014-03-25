@@ -14,7 +14,7 @@ public:
 	virtual void addNewsGroup(shared_ptr<NewsGroup> ng) = 0;
 	virtual void removeNewsGroup(string id) = 0;
 
-	virtual vector<string> listNewsGroups() = 0;
+	virtual vector<pair<string,int>> listNewsGroups() = 0;
 	virtual string listArticles(string ngID) = 0;
 	virtual string readArticle(string ngID,string artID) = 0;
 	
