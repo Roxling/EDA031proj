@@ -20,12 +20,13 @@ using namespace std;
 
 unique_ptr<Command> CommandFactory::createcommand(vector<byte> cmd){
 
-		
-		switch (cmd[0]-'0')
+		cout << "command: " << cmd[0]-0 << endl;
+		switch (cmd[0]-0)
 		{
 		case p.COM_LIST_NG:  {//list newgroup
 			cout << "Creating List NG Command" << endl;
 			unique_ptr<Command> c(new list_ng_command(database));
+			cout << "returning NG command" << endl;			
 			return  c;
 		    	break; }
 		
@@ -67,6 +68,7 @@ unique_ptr<Command> CommandFactory::createcommand(vector<byte> cmd){
 			return  c;	
 			break;} */
 		default:
+			cout << "Creating NO_Command" << endl;
 			unique_ptr<Command> c(new no_command());
 			return  c;
  		    	break;

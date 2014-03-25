@@ -5,6 +5,7 @@
 #include "date.h"
 #include <string>
 #include <iostream>
+#include <pair>
 
 
 using namespace std;
@@ -18,11 +19,11 @@ void MemDB::removeNewsGroup(string id){
 	newsgroups.erase(id);
 }
 
-string MemDB::listNewsGroups(){
-	string list = "";
+vector<pair<string,int>> MemDB::listNewsGroups(){
+	vector<string> list;
 	for(auto pair : newsgroups){
 		auto ng = pair.second;
-		list += ng->name+" - ID: "+ng->id +" Created "+ng->timestamp.print()+"\n";
+		list.push_back(pair(ng->name, stoi(ng->id)));
 	}
 	return list;	
 }
