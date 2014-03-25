@@ -6,10 +6,9 @@
 
 class no_command : public Command {
 public:
-	virtual vector<byte>& exec() override{
+	virtual void exec() override{
 		cout << "Faulty Command!" << endl;
-		return ret;
-		//TODO Terminate client
+		throwProtocolException();
 	};
 };
 

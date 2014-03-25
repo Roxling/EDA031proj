@@ -6,31 +6,35 @@
 
 class create_ng_command : public Command {
 public:
-	create_ng_command(shared_ptr<Database> db2,string ID) : ngID(ID){
-		db = db2;		
+	create_ng_command(shared_ptr<Database> db2,shared_ptr<Connection> conn){
+			db = db2;	
+			//check parse
+			try{
+				if(conn->read() != p.PAR_STRING) throwProtocolException();
+				int n = readNumber(*conn);
+				for(int i = 0; i< n; ++i){
+					ngID += conn->read();
+				}
+				if(conn->read() != p.COM_END) throwProtocolException();
+			}catch(...){
+				throwProtocolException();
+			}
 		}
 
-	virtual vector<byte>& exec() override{
+	virtual void exec() override{
 		shared_ptr<NewsGroup> ng(new NewsGroup(ngID));
 		
 		try{	
 			db->addNewsGroup(ng);
-			ret.push_back(p.ANS_CREATE_NG);
-			ret.push_back(' ');
-			ret.push_back(p.ANS_ACK);
-			ret.push_back(' ');
-			ret.push_back(p.ANS_END);
-			return ret;
+			conn->write(p.ANS_CREATE_NG);
+			conn->write(p.ANS_ACK);
+			conn->write(p.ANS_END);
 		}
-		catch(ConnectionClosedException e){
-			ret.push_back(p.ANS_CREATE_NG);
-			ret.push_back(' ');
-			ret.push_back(p.ANS_NAK);
-			ret.push_back(' ');
-			ret.push_back(p.ERR_NG_ALREADY_EXISTS);
-			ret.push_back(' ');
-			ret.push_back(p.ANS_END);
-			return ret; 
+		catch(...){
+			conn->write(p.ANS_CREATE_NG);
+			conn->write(p.ANS_NAK);
+			conn->write(p.ERR_NG_ALREADY_EXISTS);
+			conn->write(p.ANS_END); 
 		}
 	
 	};

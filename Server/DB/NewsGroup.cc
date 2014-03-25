@@ -4,6 +4,7 @@
 #include "NewsGroup.h"
 #include "date.h"
 #include <memory>
+
 using namespace std;
 
 NewsGroup::NewsGroup(string namearg):name(namearg),timestamp(Date()){
@@ -32,15 +33,13 @@ string NewsGroup::getArticle(string id){
 	return s;
 }
 
-string NewsGroup::listArticles(){
-	string s = "";
+vector<pair<string,int>> NewsGroup::listArticles(){
+	vector<pair<string,int>> list;
 	for(auto pair : articles){
 		auto a = pair.second;
-		s+= a->title + " by " + a->author + " ID: " +
-					 a->id+"Created:"+timestamp.print()+"\n"; 
-
+		list.push_back(make_pair(a->title, stoi(a->id));
 	}
-	return "";
+	return list;
 }
 
 

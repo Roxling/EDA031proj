@@ -2,9 +2,11 @@
 
 
 #include "create_ng_command.h"
-/*
+
 #include "delete_ng_command.h"
+
 #include "list_art_command.h"
+/*
 #include "create_art_command.h"
 #include "delete_art_command.h"
 #include "get_art_command.h"
@@ -28,32 +30,22 @@ unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection> conn){
 			unique_ptr<Command> c(new list_ng_command(database, conn));			
 			return  c;
 		    	break; }
-		/*
 		case p.COM_CREATE_NG:{
-			string s;
-			
-			for(int i = 0; cmd[i] != p.COM_END; ++i){
-			//Parse!
-			s = cmd[4];
-			int length = stoi(s);
-
-			for( int j = 6; j <= 6+ length ; ++j)
-			  s += cmd[j];
-			}
-			cout << "parameter: " <<  s << endl;
-
-			unique_ptr<Command> c(new create_ng_command(database,s));
+			cout << "Creating create NG Command" << endl;
+			unique_ptr<Command> c(new create_ng_command(database,conn));
 			return  c;
 		    	break;}
 		
 		case p.COM_DELETE_NG:{
-			unique_ptr<Command> c(new delete_ng_command(database));
+			unique_ptr<Command> c(new delete_ng_command(database,conn));
 			return  c;
 		    	break;}
+		
 		case p.COM_LIST_ART:{
-			unique_ptr<Command> c(new list_art_command(database));
+			unique_ptr<Command> c(new list_art_command(database,conn));
 			return  c;
 			break;}
+		/*
 		case p.COM_CREATE_ART:{
 			unique_ptr<Command> c(new create_art_command(database));
 			return  c;
@@ -75,9 +67,4 @@ unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection> conn){
 		
 		
 }
-/*
-int readNumber(const Connection& conn) {
-		return (conn.read() << 24) | (conn.read() << 16) | (conn.read() << 8) | conn.read();
-	}
 
-*/

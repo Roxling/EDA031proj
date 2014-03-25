@@ -6,6 +6,7 @@
 #include "Article.h"
 #include <memory>
 #include "date.h"
+#include <vector>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ public:
 	void addArticle(shared_ptr<Article> a);
 	void removeArticle(string artID);
 	bool contains(string id);
-	string getArticle(string id);
+	vector<pair<string,int>> getArticle(string id);
 	string listArticles();
 	string name;
 	string id;

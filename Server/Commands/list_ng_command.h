@@ -12,20 +12,16 @@ public:
 	if(conn->read() != p.COM_END) throwProtocolException();
 	};
 
-	virtual vector<byte>& exec() override{
+	virtual void exec() override{
 		 vector<pair<string, int>> ing = db->listNewsGroups();
 		conn->write(p.ANS_LIST_NG);
-		conn->write(' ');
 		addParNumber(ing.size(), conn); //wrrite number of newsgroups
-		conn->write(' ');
 		for(pair<string,int> pa : ing){
 			addParNumber(pa.second, conn); //write ID
-			conn->write(' ');
 			addParString(pa.first,conn); //write name
 		}
 
 		conn->write(p.ANS_END);
-		return ret;
 	};
 };
 

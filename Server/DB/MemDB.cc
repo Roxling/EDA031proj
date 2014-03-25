@@ -26,13 +26,13 @@ vector<pair<string,int>> MemDB::listNewsGroups(){
 	}
 	return list;	
 }
-string MemDB::listArticles(string ngID){
+vector<pair<string,int>> MemDB::listArticles(string ngID){
 	auto it = newsgroups.find(ngID);
-	string s = "";
+	vector<pair<string,int>> list;
 	if(it != newsgroups.end()){
-		s = it->second->listArticles();
+		return it->second->listArticles();
 	}
-	return s;
+	return list;
 }
 string MemDB::readArticle(string ngID,string artID){
 	auto it = newsgroups.find(ngID);

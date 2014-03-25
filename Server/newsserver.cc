@@ -73,9 +73,7 @@ int main(int argc, char* argv[]){
 		if (conn != nullptr) {
 			try {
 				unique_ptr<Command> c = cf.createcommand(conn);
-				auto reply = c->exec();
-
-				writeString(conn, reply);
+				c->exec();
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
 				cout << "Client closed connection" << endl;

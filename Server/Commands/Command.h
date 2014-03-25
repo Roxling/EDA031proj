@@ -6,6 +6,7 @@
 #include "../../protocol.h"
 #include "../../connection.h"
 #include "../../protocolbrokenexception.h"
+#include <iostream>
 
 using namespace std;
 using byte = char;
@@ -13,7 +14,7 @@ using byte = char;
 class Command{
 public:
 	Command(){};
-	virtual vector<byte>& exec() = 0;
+	virtual void exec() = 0;
 	
 protected:
 	shared_ptr<Connection> conn;
@@ -23,9 +24,7 @@ protected:
 
 	void addParString(string s, shared_ptr<Connection> conn){
 		conn->write(p.PAR_STRING);
-		conn->write(' ');
 		writeNumber(s.size(), conn);
-		conn->write(' ');
 		for(char c : s){			
 			conn->write(c);
 		}
@@ -33,7 +32,6 @@ protected:
 
 	void addParNumber(int i, shared_ptr<Connection> conn){
 		conn->write(p.PAR_NUM);
-		conn->write(' ');
 		writeNumber(i, conn);
 	}
 
@@ -42,6 +40,10 @@ protected:
 		conn->write((i >> 16) & 0xFF);
 		conn->write((i >> 8)	 & 0xFF);
 		conn->write(i & 0xFF);
+	}
+
+	int readNumber(const Connection& conn) {
+		return (conn.read() << 24) | (conn.read() << 16) | (conn.read() << 8) | conn.read();
 	}
 
 	void throwProtocolException(){
