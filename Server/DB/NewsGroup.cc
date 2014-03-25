@@ -37,7 +37,7 @@ vector<pair<string,int>> NewsGroup::listArticles(){
 	vector<pair<string,int>> list;
 	for(auto pair : articles){
 		auto a = pair.second;
-		list.push_back(make_pair(a->title, stoi(a->id));
+		list.push_back(make_pair(a->title, stoi(a->id)));
 	}
 	return list;
 }
