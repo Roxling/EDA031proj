@@ -18,7 +18,7 @@ public:
 	virtual void addNewsGroup(shared_ptr<NewsGroup> ng) override;
 	virtual void removeNewsGroup(string id) override;
 
-	virtual string listNewsGroups() override;
+	virtual vector<string> listNewsGroups() override;
 	virtual string listArticles(string ngID) override;
 	virtual string readArticle(string ngID,string artID) override;
 	

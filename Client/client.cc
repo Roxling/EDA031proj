@@ -118,7 +118,7 @@ vector<byte> parseCommand(string input){
 	if(comm.empty() || comm.back() != protocol.COM_END){
 		comm.push_back(protocol.COM_END);
 	}
-	
+
 	return comm;
 }	
 
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
 		cerr << "Usage: myclient host-name port-number" << endl;
 		exit(1);
 	}
-	
+
 	int port = -1;
 	try {
 		port = stoi(argv[2]);
@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) {
 		cerr << "Wrong port number. " << e.what() << endl;
 		exit(1);
 	}
-	
+
 	Connection conn(argv[1], port);
 	if (!conn.isConnected()) {
 		cerr << "Connection attempt failed" << endl;
@@ -170,4 +170,3 @@ int main(int argc, char* argv[]) {
 		}
 	}
 }
-

@@ -2,6 +2,7 @@
 #define LIST_NG_COMMAND_H
 
 #include "Command.h"
+#include <pair>
 
 class list_ng_command : public Command {
 public:
@@ -10,15 +11,32 @@ public:
 	};
 
 	virtual vector<byte>& exec() override{
-		 db->listNewsGroups();
+		 vector<pair<string, int>> ing = db->listNewsGroups();
+		
 
-		//Do magic
-	
 		ret.push_back(p.ANS_LIST_NG);
 		ret.push_back(' ');
-		ret.push_back(p.PAR_NUM);
+		ret.push_back(p.PAR_NUM);  //FIX
 		ret.push_back(' ');
-		ret.push_back(p.ANS_ACK);
+		ret.push_back(ing.size());
+		ret.push_back(' ');
+
+		//Do magic
+		for(pair pa : ing){
+			ret.push_back(p.PAR_NUM);
+			ret.push_back(' ');
+			ret.push_back(pa.second); //FIX
+			ret.push_back(' ');
+			ret.push_back(p.PAR_STRING);
+			ret.push_back(p.first.size); //FIX!! =O
+			for(char c : p.first){			
+				ret.push_back(c);
+			}
+			
+		}
+
+
+		ret.push_back(p.ANS_END);
 		return ret;
 	};
 };
