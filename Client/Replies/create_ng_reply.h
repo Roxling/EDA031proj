@@ -1,5 +1,5 @@
-#ifndef LIST_NG_REPLY_H
-#define LIST_NG_REPLY_H
+#ifndef CREATE_NG_REPLY_H
+#define CREATE_NG_REPLY_H
 
 
 #include "Reply.h"
@@ -8,9 +8,9 @@
 
 using byte = char;
 
-class list_ng_reply : public Reply {
+class create_ng_reply : public Reply {
 public:
-	list_ng_reply(const Connection& conn);
+	create_ng_reply(const Connection& conn);
 	virtual string print() override{
 		return ans;
 	}

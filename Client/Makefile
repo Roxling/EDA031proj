@@ -23,7 +23,7 @@ all:   $(PROGS)
 
 all: $(PROGS)
  
-client: client.o ../connection.o ../protocol.o Replies/ReplyFactory.o Replies/list_ng_reply.o
+client: client.o ../connection.o ../protocol.o Replies/ReplyFactory.o Replies/list_ng_reply.o Replies/create_ng_reply.o Replies/delete_ng_reply.o Replies/list_art_reply.o Replies/create_art_reply.o Replies/delete_art_reply.o Replies/get_art_reply.o
 
 
 # Phony targets
