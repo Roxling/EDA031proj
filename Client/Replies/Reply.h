@@ -5,7 +5,7 @@
 #include <vector>
 #include "../../protocol.h"
 #include "../../connection.h"
-#include "protocolbrokenexception.h"
+#include "../../protocolbrokenexception.h"
 
 using namespace std;
 using byte = char;
