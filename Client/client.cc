@@ -26,8 +26,46 @@ void writeCommand(const Connection& conn, vector<byte>& command) {
 		conn.write(b);
 	}
 }
+
+string readnum(istringstream& iss){
+	string arg = "PAR_NUM ";
+	string num;
+	iss >> num;
+	arg+=num;
+	return arg;
+}
+
+string readstring(istringstream& iss){
+	string arg = "PAR_STRING ";
+	string str;
+	iss >> str;
+	arg += to_string(str.size())+" ";
+	arg += str;
+	return arg;
+}
+string readtext(istringstream& iss){
+	string arg = "PAR_STRING ";
+	string total ="";
+	while(!iss.eof()){
+		total+=iss.get();
+	}
+	arg += to_string(total.size())+" ";
+	arg += total;
+	iss.clear();
+	return arg;
+}
+
 struct invalidInputException{};
-static string HELP = "";
+static string HELP =	"No arguments can contain whitespace except the ones named text. \n"
+						"Feedback on invalid command. \n \n"
+						"Valid commands: [list|create|delete|get] [article|art|newsgroup|ng] [arguments] \n"
+						"list ng \t\t\t - Lists all available newsgroups.  \n"
+						"create ng title \t\t - Creates a newsgroup with the provided title. \n"
+						"delete ng id \t\t\t - Deletes the newsgroup with the provided id. \n"
+						"list art id \t\t\t - Lists all available articles in the newsgroup \n \t\t\t\t associated with the provided id. \n"
+						"create art id title author text\t - Creates an article with the \n \t\t\t\t provided title, author and text in the newsgroup \n \t\t\t\t associated with the provided id. \n"
+						"delete art ngid artid \t\t - Deletes the article with the provided artid \n \t\t\t\t inside the newsgroup with the provided ngid. \n"
+						"get art ngid artid \t\t - Displays the article with the provided artid \n \t\t\t\t inside the newsgroup with the provided ngid. \n";
 string toProtocol(string& input){
 	transform(input.begin(), input.end(), input.begin(), ::tolower);
 	string protocol="";
@@ -44,11 +82,10 @@ string toProtocol(string& input){
 		protocol+="LIST_";
 		if(art){
 			protocol+="ART ";
-			string id;
-			iss >> id;
-			protocol +=id;
+			protocol +=readnum(iss);
 		}else if(ng){
 			protocol+="NG ";
+			protocol += " ";
 		}else{
 			throw invalidInputException();
 		}
@@ -56,8 +93,16 @@ string toProtocol(string& input){
 		protocol+="CREATE_";
 		if(art){
 			protocol+="ART ";
+			protocol+=readnum(iss);
+			protocol += " ";
+			protocol+=readstring(iss);
+			protocol += " ";
+			protocol+=readstring(iss);
+			protocol += " ";
+			protocol+=readtext(iss);
 		}else if(ng){
 			protocol+="NG ";
+			protocol+=readstring(iss);
 		}else{
 			throw invalidInputException();
 		}
@@ -65,8 +110,12 @@ string toProtocol(string& input){
 		protocol+="DELETE_";
 		if(art){
 			protocol+="ART ";
+			protocol+=readnum(iss);
+			protocol += " ";
+			protocol+=readnum(iss);
 		}else if(ng){
 			protocol+="NG ";
+			protocol+=readnum(iss);
 		}else{
 			throw invalidInputException();
 		}
@@ -74,6 +123,9 @@ string toProtocol(string& input){
 		protocol+="GET_";
 		if(art){
 			protocol+="ART ";
+			protocol+=readnum(iss);
+			protocol += " ";
+			protocol+=readnum(iss);
 		}else{
 			throw invalidInputException();
 		}
@@ -84,6 +136,7 @@ string toProtocol(string& input){
 	if(iss.fail()){
 		throw invalidInputException();
 	}
+	cout << protocol << endl;
 	return protocol;
 }
 
@@ -96,12 +149,8 @@ vector<byte> parseCommand(string input){
 		byte b = protocol.getByte(word);
 		if(b != protocol.ERR_NOT_PROTOCOL){
 			comm.push_back(b);
-		}else{
-			for(byte ch : word){
-				comm.push_back(ch);
-			}
 		}
-		if(b == protocol.PAR_STRING || b == protocol.PAR_NUM){
+		if(b == protocol.PAR_NUM){
 			if(iss >> word){
 				try{
 					int nbr = stoi(word);
@@ -109,6 +158,21 @@ vector<byte> parseCommand(string input){
     				comm.push_back(nbr >> 16);
     				comm.push_back(nbr >>  8);
     				comm.push_back(nbr);
+				}catch(out_of_range& e){
+					cout << "Parse int to byte[] error" << endl;
+				}
+			}
+		}else if(b == protocol.PAR_STRING){
+			if(iss >> word){
+				try{
+					int nbr = stoi(word);
+					comm.push_back(nbr >> 24);
+					comm.push_back(nbr >> 16);
+					comm.push_back(nbr >>  8);
+					comm.push_back(nbr);
+					for(int i = 0 ; i < nbr; ++i){
+						comm.push_back(iss.get());
+					}
 				}catch(out_of_range& e){
 					cout << "Parse int to byte[] error" << endl;
 				}
@@ -142,27 +206,34 @@ int main(int argc, char* argv[]) {
 		cerr << "Connection attempt failed" << endl;
 		exit(1);
 	}
-	ReplyFactory rf;
-	cout << "Type a commands: \n >> ";
-	string command;
-	while (getline(cin,command)) {
-		try {
-			bool correctInput = false;
-			vector<byte> comm;
-			while(!correctInput){
-				try{
-					comm = parseCommand(command);
-					correctInput = true;
-				}catch(invalidInputException&){
-					cout << "Invalid input. \n" << ">> ";
-				}
 
+	ReplyFactory rf;
+	string comms;
+	cout << "Type -help to display help, -quit to exit or enter commands: \n >> ";
+	while (getline(cin,comms)) {
+		try{
+			vector<byte> comm;
+			if(comms.find("help") != string::npos && comms.size() < 6){
+				cout << HELP << endl;
+			}else if(comms.find("quit") != string::npos && comms.size() < 6)
+			{
+				cout << "Exiting.." << endl;
+				exit(0);
 			}
-			writeCommand(conn, comm);
-			cout << rf.createReply(conn)->print() << endl;
-			cout << ">> ";
-		} catch (ConnectionClosedException&) {
-			cout << " no reply from server. Exiting." << endl;
+			else{
+				try{
+					comm = parseCommand(comms);
+					writeCommand(conn, comm);
+					cout << rf.createReply(conn)->print() << endl;
+					cout << ">> ";
+
+				}catch(...){
+					cout << "Invalid input. Type -help to display help \n" << ">> ";
+				}
+			}
+
+		}catch (ConnectionClosedException&) {
+			cout << "No reply from server. Exiting." << endl;
 			exit(1);
 		} catch(ProtocolBrokenException&){
 			cout << "Sever not following protocol. Can not read answer." << endl;
