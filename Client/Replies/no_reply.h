@@ -3,11 +3,14 @@
 
 
 #include "Reply.h"
+#include <iostream>
 
 class no_reply : public Reply {
 public:
-	virtual string exec() override{
-		return "No readable reply from server, protocol broken.";
+	no_reply(){}
+	virtual string print() override{
+		protocolBroken();
+		return "";
 	}
 };
 

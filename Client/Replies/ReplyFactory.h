@@ -11,7 +11,7 @@ using namespace std;
 using byte = char;
 class ReplyFactory{
 public:
-	std::unique_ptr<Reply> createReply(vector<byte>& comm);
+	std::unique_ptr<Reply> createReply(const Connection& conn);
 private:
 	Protocol protocol;
 };
