@@ -86,8 +86,8 @@ int main(int argc, char* argv[]) {
 		try {
 			auto comm = parseCommand(command); 
 			writeCommand(conn, comm);
-			cout << rf.createReply(conn)->exec() << endl;
-			cout << "Type a command: ";
+			cout << rf.createReply(conn)->print() << endl;
+			cout << ">>";
 		} catch (ConnectionClosedException&) {
 			cout << " no reply from server. Exiting." << endl;
 			exit(1);

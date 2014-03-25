@@ -5,18 +5,20 @@
 #include <vector>
 #include "../../protocol.h"
 #include "../../connection.h"
+#include "protocolbrokenexception.h"
 
 using namespace std;
 using byte = char;
 class Reply{
 public:
-	virtual string exec() = 0;
+	virtual string print() = 0;
 protected:
-	int readNumber(vector<byte>& integer,unsigned int startpos) {
-		if(integer.size() >= startpos+4){
-			return (integer[startpos] << 24) | (integer[startpos+1] << 16) | (integer[startpos+2] << 8) | integer[startpos+3];
-		}
-		return -1;	
+	int readNumber(const Connection& conn) {
+		return (conn.read() << 24) | (conn.read() << 16) | (conn.read() << 8) | conn.read();
+	}
+
+	void protocolBroken(){
+		throw ProtocolBrokenException();
 	}
 	Protocol protocol;
 };

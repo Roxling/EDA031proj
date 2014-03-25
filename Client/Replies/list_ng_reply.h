@@ -11,11 +11,11 @@ using byte = char;
 class list_ng_reply : public Reply {
 public:
 	list_ng_reply(const Connection& conn);
-	virtual string exec() override{
+	virtual string print() override{
 		return ans;
 	}
 private:
-	string ans;
+	string ans = "";
 	unsigned int minsize = 7;
 };
 

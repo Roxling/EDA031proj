@@ -10,8 +10,8 @@ using byte = char;
 
 unique_ptr<Reply> ReplyFactory::createReply(const Connection& conn){
 
-	byte b = conn.read();
-	switch(b-0){
+
+	switch(conn.read()-0){
 	case protocol.ANS_LIST_NG:
 		return unique_ptr<Reply>(new list_ng_reply(conn));
 		break;

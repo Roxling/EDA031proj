@@ -8,9 +8,9 @@
 class no_reply : public Reply {
 public:
 	no_reply(){}
-	virtual string exec() override{
-		std::cout << "No readable reply from server, protocol broken." << std::endl;
-		exit(-1);
+	virtual string print() override{
+		protocolBroken();
+		return "";
 	}
 };
 
