@@ -1,7 +1,7 @@
 #include "list_ng_command.h"
 #include "Command.h"
 
-list_ng_command::list_ng_command(shared_ptr<Database> db2, shared_ptr<Connection> c) : Command(db2,c){
+list_ng_command::list_ng_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c) : Command(db2,c){
 	if(conn->read() != protocol.COM_END) protocolBroken();
 }
 

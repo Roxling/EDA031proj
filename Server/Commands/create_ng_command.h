@@ -7,7 +7,7 @@
 class create_ng_command : public Command {
 public:
 
-	create_ng_command(shared_ptr<Database> db2,shared_ptr<Connection> conn);
+	create_ng_command(shared_ptr<Database>& db2,shared_ptr<Connection>& conn);
 	virtual void exec() override;
 private:
 	string ngID;

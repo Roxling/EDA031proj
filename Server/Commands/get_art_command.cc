@@ -1,7 +1,7 @@
 #include "get_art_command.h"
 #include "Command.h"
 
-get_art_command::get_art_command(shared_ptr<Database> db2, shared_ptr<Connection> c) : Command(db2,c){
+get_art_command::get_art_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c) : Command(db2,c){
 	if(conn->read() != protocol.COM_END) protocolBroken();
 }
 

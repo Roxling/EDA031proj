@@ -13,8 +13,8 @@ using namespace std;
 using byte = char;
 class CommandFactory{
 public:
-	CommandFactory(shared_ptr<Database> db): database(db){}
-	std::unique_ptr<Command> createcommand(shared_ptr<Connection>);
+	CommandFactory(shared_ptr<Database>& db): database(db){}
+	std::unique_ptr<Command> createcommand(shared_ptr<Connection>&);
 private:
 	Protocol p;
 	shared_ptr<Database> database;

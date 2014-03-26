@@ -20,7 +20,7 @@
 
 using namespace std;
 
-unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection> conn){
+unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection>& conn){
 		switch (conn->read() - 0){
 		case p.COM_LIST_NG:
 			cout << "Creating List NG Command" << endl;
@@ -49,7 +49,7 @@ unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection> conn){
 			break;} */
 		default:
 			cout << "Creating NO_Command" << endl;
-			return unique_ptr<Command>(new no_command());
+			return unique_ptr<Command>(new no_command(database,conn));
 		}	
 }
 

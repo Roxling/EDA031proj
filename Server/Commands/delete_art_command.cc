@@ -1,7 +1,7 @@
 #include "delete_art_command.h"
 #include "Command.h"
 
-delete_art_command::delete_art_command(shared_ptr<Database> db2, shared_ptr<Connection> c) : Command(db2,c){
+delete_art_command::delete_art_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c) : Command(db2,c){
 	if(conn->read() != protocol.COM_END) protocolBroken();
 }
 

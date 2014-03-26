@@ -5,7 +5,7 @@
 
 class create_art_command : public Command {
 public:
-	create_art_command(shared_ptr<Database> db2, shared_ptr<Connection> c);
+	create_art_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c);
 
 	virtual void exec() override;
 };

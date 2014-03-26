@@ -1,7 +1,7 @@
 #include "delete_ng_command.h"
 #include "Command.h"
 
-delete_ng_command::delete_ng_command(shared_ptr<Database> db2, shared_ptr<Connection> c) : Command(db2,c){
+delete_ng_command::delete_ng_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c) : Command(db2,c){
 	try{
 		if(conn->read() != protocol.PAR_NUM)protocolBroken();
 		int n  = conn->read();

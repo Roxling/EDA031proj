@@ -4,12 +4,12 @@
 #include "../../connection.h"
 #include "../../protocolbrokenexception.h"
 #include <iostream>
-#include <Command.h>
+#include "Command.h"
 
 using namespace std;
 using byte = char;
 
-Command::Command(shared_ptr<Database> db2, shared_ptr<Connection> c):db(db2),conn(c){}
+Command::Command(shared_ptr<Database>& db2, shared_ptr<Connection>& c):db(db2),conn(c){}
 	
 
 void Command::addParString(string s, shared_ptr<Connection> conn){

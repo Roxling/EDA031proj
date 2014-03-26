@@ -1,7 +1,7 @@
 #include "list_art_command.h"
 #include "Command.h"
 
-list_art_command::list_art_command(shared_ptr<Database> db2, shared_ptr<Connection> c) : Command(db2,c){
+list_art_command::list_art_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c) : Command(db2,c){
 	try{
 		if(conn->read() != protocol.PAR_NUM) protocolBroken();
 		int n = readNumber(*conn);
