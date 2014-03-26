@@ -9,7 +9,7 @@ void list_ng_command::exec(){
 	vector<pair<string, int>> ing = db->listNewsGroups();
 	conn->write(protocol.ANS_LIST_NG);
 	addParNumber(ing.size(), conn); //wrrite number of newsgroups
-	for(pair<string,int> pa : ing){
+	for(auto pa : ing){
 		addParNumber(pa.second, conn); //write ID
 		addParString(pa.first,conn); //write name
 	}
