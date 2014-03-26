@@ -26,6 +26,8 @@ protected:
 	void addParNumber(int i, shared_ptr<Connection> conn);
 
 	void writeNumber(int i,shared_ptr<Connection> conn);
+	
+	string readString(const Connection& conn);
 
 	int readNumber(const Connection& conn);
 

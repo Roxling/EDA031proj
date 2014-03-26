@@ -36,6 +36,15 @@ int Command::readNumber(const Connection& conn) {
 	return (conn.read() << 24) | (conn.read() << 16) | (conn.read() << 8) | conn.read();
 }
 
+string Command::readString(const Connection& conn){
+	string s;
+	int length = readNumber(conn);
+	for(int i = 0; i< length; ++i){
+		s+= conn.read();
+	}
+	return s;
+}
+
 void Command::protocolBroken(){
 	throw ProtocolBrokenException();
 }
