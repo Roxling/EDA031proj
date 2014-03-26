@@ -22,7 +22,7 @@ static Protocol protocol;
  */
 void writeCommand(const Connection& conn, vector<byte>& command) {
 	for(byte b : command){
-		cout << "Send: " << b-0 << endl;		
+		//cout << "Sending: " << b-0 <<" "<< b << endl;
 		conn.write(b);
 	}
 }
@@ -48,6 +48,7 @@ string readtext(istringstream& iss){
 
 	// get length
 	int start = iss.tellg();
+	start++;
 	iss.seekg (0, iss.end);
 	int length = iss.tellg();
 	length -= start;
@@ -144,7 +145,6 @@ string toProtocol(string& input){
 	if(iss.fail()){
 		throw invalidInputException();
 	}
-	cout << protocol << endl;
 	return protocol;
 }
 
@@ -178,6 +178,7 @@ vector<byte> parseCommand(string input){
 					comm.push_back(nbr >> 16);
 					comm.push_back(nbr >>  8);
 					comm.push_back(nbr);
+					iss.get(); //rm whitespace
 					for(int i = 0 ; i < nbr; ++i){
 						comm.push_back(iss.get());
 					}
@@ -232,14 +233,13 @@ int main(int argc, char* argv[]) {
 				comm = parseCommand(comms);
 				writeCommand(conn, comm);
 				cout << rf.createReply(conn)->print() << endl;
-				cout << ">> ";
 			}
 
 		}catch (ConnectionClosedException&) {
 			cout << "No reply from server. Exiting." << endl;
 			exit(1);
 		} catch(ProtocolBrokenException&){
-			cout << "Sever not following protocol. Can not read answer." << endl;
+			cout << "Server not following protocol. Can not read answer." << endl;
 			while(conn.read() != protocol.ANS_END); //Reading until end.
 		}catch(invalidInputException&){
 			cout << "Invalid input. Type -help to display help"<<endl;

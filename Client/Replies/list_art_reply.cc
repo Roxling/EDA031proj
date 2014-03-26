@@ -17,10 +17,11 @@ list_art_reply::list_art_reply(const Connection& conn){
 					ans += "ID: " + to_string(id);
 					if(conn.read() == protocol.PAR_STRING){
 						int namelength = readNumber(conn);
-						ans += "Name: ";
+						ans += " Name: ";
 						for(int j = 0; j< namelength ; ++j){
 							ans+=conn.read();
 						}
+						ans += "\n";
 					}else{
 						protocolBroken();
 					}

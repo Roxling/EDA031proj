@@ -14,6 +14,7 @@ get_art_reply::get_art_reply(const Connection& conn){
 			if(conn.read() == protocol.PAR_STRING){
 				int length = readNumber(conn);
 				string param = "";
+				cout <<"length: "+to_string(length) << endl;
 				for(int j = 0 ; j < length; ++j){
 					param += conn.read();
 				}
@@ -22,7 +23,7 @@ get_art_reply::get_art_reply(const Connection& conn){
 				protocolBroken();
 			}
 		}
-		ans += "Tile: "+params[0]+" Author: "+params[1]+"\n"+params[2];
+		ans += "Title: "+params[0]+" Author: "+params[1]+"\n"+params[2];
 	}else if(command == protocol.ANS_NAK){
 		byte err = conn.read();
 		if(err == protocol.ERR_NG_DOES_NOT_EXIST){

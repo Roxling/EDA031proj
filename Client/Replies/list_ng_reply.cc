@@ -15,10 +15,11 @@ list_ng_reply::list_ng_reply(const Connection& conn){
 				ans += "ID: " + to_string(id);
 				if(conn.read() == protocol.PAR_STRING){
 					int namelength = readNumber(conn);
-					ans += "Name: ";
-					for(int j = 0; j< namelength ; ++j){
+					ans += " Name: ";
+					for(int j = 0; j < namelength ; ++j){
 						ans+=conn.read();
 					}
+					ans += "\n";
 				}else{
 					protocolBroken();
 				}

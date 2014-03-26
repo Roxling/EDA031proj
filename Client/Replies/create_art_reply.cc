@@ -7,7 +7,7 @@
 using byte = char;
 
 create_art_reply::create_art_reply(const Connection& conn){
-	byte command = conn.read();
+		byte command = conn.read();
 		if(command == protocol.ANS_ACK){
 			ans = "Article created.";
 		}else if(command == protocol.ANS_NAK){
