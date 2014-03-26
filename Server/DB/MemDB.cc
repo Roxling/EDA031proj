@@ -11,8 +11,8 @@ using namespace std;
 
 MemDB::MemDB(){}
 
-void MemDB::addNewsGroup(shared_ptr<NewsGroup> ng){
-	newsgroups.insert(make_pair(ng->id,ng));
+bool MemDB::addNewsGroup(shared_ptr<NewsGroup> ng){
+	return newsgroups.insert(make_pair(ng->id,ng)).second;
 }
 void MemDB::removeNewsGroup(string id){
 	newsgroups.erase(id);

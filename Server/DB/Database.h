@@ -11,7 +11,7 @@ using namespace std;
 class Database{
 
 public:
-	virtual void addNewsGroup(shared_ptr<NewsGroup> ng) = 0;
+	virtual bool addNewsGroup(shared_ptr<NewsGroup> ng) = 0;
 	virtual void removeNewsGroup(string id) = 0;
 
 	virtual vector<pair<string,int>> listNewsGroups() = 0;

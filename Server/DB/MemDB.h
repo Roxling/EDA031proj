@@ -15,7 +15,7 @@ class MemDB: public Database{
 public:
 	MemDB();
 
-	virtual void addNewsGroup(shared_ptr<NewsGroup> ng) override;
+	virtual bool addNewsGroup(shared_ptr<NewsGroup> ng) override;
 	virtual void removeNewsGroup(string id) override;
 
 	virtual vector<pair<string,int>> listNewsGroups() override;
