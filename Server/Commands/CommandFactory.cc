@@ -6,11 +6,11 @@
 #include "delete_ng_command.h"
 
 #include "list_art_command.h"
-/*
+
 #include "create_art_command.h"
 #include "delete_art_command.h"
 #include "get_art_command.h"
-*/
+
 
 #include "list_ng_command.h"
 #include "no_command.h"
