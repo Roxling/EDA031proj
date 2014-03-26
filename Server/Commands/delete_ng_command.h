@@ -11,13 +11,13 @@ public:
 		//check parse	
 
 		try{
-			if(conn->read() != p.PAR_NUM)throwProtocolException();
+			if(conn->read() != protocol.PAR_NUM)protocolBroken();
 			int n  = conn->read();
 			ngID = to_string(n);
-			if(conn->read() != p.COM_END)throwProtocolException();
+			if(conn->read() != protocol.COM_END)protocolBroken();
 		}catch(...){
 			std::cout << "Caught a villanous exception in delete_NG!" << std::endl;
-			throwProtocolException();
+			protocolBroken();
 		}
 		
 	}
@@ -25,17 +25,17 @@ public:
 		try{
 		   db->removeNewsGroup(ngID);
 		}catch(...){
-		   throwProtocolException();
+		   protocolBroken();
 		  	
-		   conn->write(p.ANS_DELETE_NG);
-		   conn->write(p.ANS_NAK);
-		   conn->write(p.ERR_NG_DOES_NOT_EXIST);
-		   conn->write(p.ANS_END);
+		   conn->write(protocol.ANS_DELETE_NG);
+		   conn->write(protocol.ANS_NAK);
+		   conn->write(protocol.ERR_NG_DOES_NOT_EXIST);
+		   conn->write(protocol.ANS_END);
 		}
 		//deal with errors
-		conn->write(p.ANS_DELETE_NG);
-		conn->write(p.ANS_ACK);
-		conn->write(p.ANS_END);
+		conn->write(protocol.ANS_DELETE_NG);
+		conn->write(protocol.ANS_ACK);
+		conn->write(protocol.ANS_END);
 	
 	};
 private:
