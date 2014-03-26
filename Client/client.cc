@@ -45,13 +45,21 @@ string readstring(istringstream& iss){
 }
 string readtext(istringstream& iss){
 	string arg = "PAR_STRING ";
-	string total ="";
-	while(!iss.eof()){
-		total+=iss.get();
-	}
-	arg += to_string(total.size())+" ";
-	arg += total;
-	iss.clear();
+
+	// get length
+	int start = iss.tellg();
+	iss.seekg (0, iss.end);
+	int length = iss.tellg();
+	length -= start;
+	iss.seekg (start, iss.beg);
+	char * buffer = new char [length];
+	iss.read (buffer,length);
+
+	arg += to_string(length)+" ";
+	arg += buffer;
+
+	delete[] buffer;
+
 	return arg;
 }
 
@@ -221,15 +229,10 @@ int main(int argc, char* argv[]) {
 				exit(0);
 			}
 			else{
-				try{
-					comm = parseCommand(comms);
-					writeCommand(conn, comm);
-					cout << rf.createReply(conn)->print() << endl;
-					cout << ">> ";
-
-				}catch(...){
-					cout << "Invalid input. Type -help to display help \n" << ">> ";
-				}
+				comm = parseCommand(comms);
+				writeCommand(conn, comm);
+				cout << rf.createReply(conn)->print() << endl;
+				cout << ">> ";
 			}
 
 		}catch (ConnectionClosedException&) {
@@ -238,6 +241,11 @@ int main(int argc, char* argv[]) {
 		} catch(ProtocolBrokenException&){
 			cout << "Sever not following protocol. Can not read answer." << endl;
 			while(conn.read() != protocol.ANS_END); //Reading until end.
+		}catch(invalidInputException&){
+			cout << "Invalid input. Type -help to display help"<<endl;
+		}catch(invalid_argument&){
+			cout << "Invalid input. Type -help to display help"<<endl;
 		}
+		cout << ">> ";
 	}
 }
