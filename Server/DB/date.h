@@ -3,14 +3,16 @@
 
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 class Date {
 public:
 	Date();                    // today's date
 	Date(int y, int m, int d); // yyyy-mm-dd
-	bool operator<(Date& rhs);
+	bool operator<(const Date& rhs) const;
 	time_t getSeconds();
+	long int getMillis();
 	string print();
 	
 private:
@@ -21,6 +23,7 @@ private:
 	int min;
 	int sec;
 	time_t total;
+	long int millis;
 	static int daysPerMonth[12]; // number of days in each month
 };
 

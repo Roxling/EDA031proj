@@ -8,7 +8,7 @@
 
 using namespace std;
 
-NewsGroup::NewsGroup(string namearg):name(namearg),timestamp(Date()){
+NewsGroup::NewsGroup(string namearg):name(namearg){
 	static unsigned int counter;
 	id = to_string(counter++);
 }
@@ -42,6 +42,7 @@ vector<pair<string,int>> NewsGroup::listArticles(){
 		auto a = pair.second;
 		list.push_back(make_pair(a->title, stoi(a->id)));
 	}
+
 	return list;
 }
 

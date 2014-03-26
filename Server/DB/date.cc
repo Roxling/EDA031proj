@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <stdexcept>
 #include <string>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -18,12 +19,20 @@ Date::Date() {
 	hour = locTime->tm_hour;
 	min = locTime->tm_min;
 	sec = locTime->tm_sec;
+
+	struct timeval tp;
+	gettimeofday(&tp,NULL);
+	millis = tp.tv_sec * 1000 + tp.tv_usec / 1000;
 }
 
 Date::Date(int y, int m, int d) : year(y), month(m), day(d) {}
 
-bool Date::operator<(Date& rhs){
-	return false; //sort on timer in constructor
+bool Date::operator<(const Date& rhs) const{
+	return millis<rhs.millis; //sort on timer in constructor
+}
+
+long int Date::getMillis(){
+	return millis;
 }
 
 time_t Date::getSeconds(){

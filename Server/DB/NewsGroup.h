@@ -2,13 +2,15 @@
 #define NEWSGROUP_H
 
 #include <string>
-#include <unordered_map>
+#include <map>
 #include "Article.h"
 #include <memory>
 #include "date.h"
 #include <vector>
 
 using namespace std;
+
+
 
 class NewsGroup{
 public:
@@ -22,7 +24,7 @@ public:
 	string id;
 	Date timestamp;
 private:
-	unordered_map<string,shared_ptr<Article>> articles;
+	map<string,shared_ptr<Article>> articles;
 
 };
 

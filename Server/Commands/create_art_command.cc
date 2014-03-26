@@ -19,6 +19,10 @@ create_art_command::create_art_command(shared_ptr<Database>& db2, shared_ptr<Con
 		protocolBroken();
 	}
 	text = readString(*conn);
+
+	if(conn->read() != protocol.COM_END){
+		protocolBroken();
+	}
 }
 
 void create_art_command::exec(){

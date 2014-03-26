@@ -14,6 +14,11 @@ MemDB::MemDB(){
 }
 
 bool MemDB::addNewsGroup(shared_ptr<NewsGroup> ng){
+	for(auto n : newsgroups){
+		if(n.second->name.compare(ng->name) == 0){
+			return false;
+		}
+	}
 	return newsgroups.insert(make_pair(ng->id,ng)).second;
 }
 bool MemDB::removeNewsGroup(string id){

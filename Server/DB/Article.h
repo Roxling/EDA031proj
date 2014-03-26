@@ -9,6 +9,7 @@ class Article{
 	friend class NewsGroup;
 public:	
 	Article(string authorarg,string titlearg,string textarg);
+	string getID() const;
 private:	
 	string id;
 	string author;
