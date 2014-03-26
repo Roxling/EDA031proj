@@ -4,6 +4,7 @@
 #include "NewsGroup.h"
 #include "date.h"
 #include <memory>
+#include <vector>
 
 using namespace std;
 
@@ -24,13 +25,15 @@ bool NewsGroup::contains(string id){
 	return articles.find(id) != articles.end();
 }
 
-string NewsGroup::getArticle(string id){
-	string s = "";
+vector<string> NewsGroup::getArticle(string id){
+	vector<string>	v;
 	auto it = articles.find(id);
 	if(it != articles.end()){
-		s += it->second->author+"\n"+it->second->text;
+		v.push_back(it->second->title);
+		v.push_back(it->second->author);
+		v.push_back(it->second->text);
 	}
-	return s;
+	return v;
 }
 
 vector<pair<string,int>> NewsGroup::listArticles(){

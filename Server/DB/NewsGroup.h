@@ -16,7 +16,7 @@ public:
 	bool addArticle(shared_ptr<Article> a);
 	bool removeArticle(string artID);
 	bool contains(string id);
-	string getArticle(string id);
+	vector<string> getArticle(string id);
 	vector<pair<string,int>> listArticles();
 	string name;
 	string id;

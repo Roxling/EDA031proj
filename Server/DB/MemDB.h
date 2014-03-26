@@ -21,7 +21,7 @@ public:
 
 	virtual vector<pair<string,int>> listNewsGroups() override;
 	virtual vector<pair<string,int>> listArticles(string ngID) override;
-	virtual string readArticle(string ngID,string artID) override;
+	virtual vector<string> readArticle(string ngID,string artID) override;
 	
 	virtual bool addArticle(string ngID,shared_ptr<Article> a) override;
 	virtual bool removeArticle(string ngID,string artID) override;

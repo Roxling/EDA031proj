@@ -2,28 +2,29 @@
 #include "Command.h"
 
 list_art_command::list_art_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c) : Command(db2,c){
-	try{
-		if(conn->read() != protocol.PAR_NUM) protocolBroken();
-		int n = readNumber(*conn);
-		ngID = to_string(n);
-		if(conn->read() != protocol.COM_END) protocolBroken();
-		}catch(...){
-		std::cout << "Caught a nefarious exception in list_art!" << std::endl;
+	if(conn->read() == protocol.PAR_NUM){
+		ngID = to_string(readNumber(*conn));
+	}else{
+		protocolBroken();
+	}
+	if(conn->read() != protocol.COM_END){
 		protocolBroken();
 	}
 }
 
 void list_art_command::exec(){
-	try{
-	vector<pair<string,int>> arts = db->listArticles(ngID);
 	conn->write(protocol.ANS_LIST_ART);
-	addParNumber(arts.size(),conn);
-	for(pair<string,int> pa: arts){
-		addParNumber(pa.second,conn);
-		addParString(pa.first,conn);
+	if(db->containsNewsGroup(ngID)){
+		conn->write(protocol.ANS_ACK);
+		auto arts = db->listArticles(ngID);
+		addParNumber(arts.size(),conn);
+		for(auto art : arts){
+			addParNumber(art.second,conn);
+			addParString(art.first,conn);
+		}
+	}else{
+		conn->write(protocol.ANS_NAK);
+		conn->write(protocol.ERR_NG_DOES_NOT_EXIST);
 	}
 	conn->write(protocol.ANS_END);
-	}catch(...){
-
-	}
 }
