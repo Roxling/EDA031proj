@@ -3,12 +3,12 @@
 	create_ng_command::create_ng_command(shared_ptr<Database> db2,shared_ptr<Connection> c): Command(db2,c){	
 			//check parse
 			try{
-				if(conn->read() != p.PAR_STRING) protocolBroken();
+				if(conn->read() != protocol.PAR_STRING) protocolBroken();
 				int n = readNumber(*conn);
 				for(int i = 0; i< n; ++i){
 					ngID += conn->read();
 				}
-				if(conn->read() != p.COM_END) protocolBroken();
+				if(conn->read() != protocol.COM_END) protocolBroken();
 			}catch(...){
 				protocolBroken();
 			}
@@ -19,15 +19,15 @@
 		
 		try{	
 			db->addNewsGroup(ng);
-			conn->write(p.ANS_CREATE_NG);
-			conn->write(p.ANS_ACK);
-			conn->write(p.ANS_END);
+			conn->write(protocol.ANS_CREATE_NG);
+			conn->write(protocol.ANS_ACK);
+			conn->write(protocol.ANS_END);
 		}
 		catch(...){
-			conn->write(p.ANS_CREATE_NG);
-			conn->write(p.ANS_NAK);
-			conn->write(p.ERR_NG_ALREADY_EXISTS);
-			conn->write(p.ANS_END); 
+			conn->write(protocol.ANS_CREATE_NG);
+			conn->write(protocol.ANS_NAK);
+			conn->write(protocol.ERR_NG_ALREADY_EXISTS);
+			conn->write(protocol.ANS_END);
 		}
 	
 	}
