@@ -5,7 +5,7 @@
 #include "NewsGroup.h"
 #include "Database.h"
 #include <string>
-#include <unordered_map>
+#include <map>
 #include "date.h"
 
 using namespace std;
@@ -27,7 +27,7 @@ public:
 	virtual bool removeArticle(string ngID,string artID) override;
 	virtual bool containsArticle(string ngID,string artID) override;
 private:
-	unordered_map<string,shared_ptr<NewsGroup>> newsgroups;
+	map<string,shared_ptr<NewsGroup>> newsgroups;
 };
 
 #endif

@@ -34,19 +34,16 @@ unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection>& conn){
 		case p.COM_LIST_ART:
 			cout << "Creating list ART Command" << endl;
 			return unique_ptr<Command>(new list_art_command(database,conn));
-		/*
-		case p.COM_CREATE_ART:{
-			unique_ptr<Command> c(new create_art_command(database));
-			return  c;
-			break;}
-		case p.COM_DELETE_ART:{
-			unique_ptr<Command> c(new delete_art_command(database));
-			return  c;	
-			break;}
-		case p.COM_GET_ART:{
-			unique_ptr<Command> c(new get_art_command(database));
-			return  c;	
-			break;} */
+		case p.COM_CREATE_ART:
+			cout << "Creating CREATE_ART Command" << endl;
+			return unique_ptr<Command>(new create_art_command(database,conn));
+		case p.COM_DELETE_ART:
+			cout << "Creating DELETE_ART Command" << endl;
+			return unique_ptr<Command>(new delete_art_command(database,conn));
+		case p.COM_GET_ART:
+			cout << "Creating GET_ART Command" << endl;
+			return unique_ptr<Command>(new get_art_command(database,conn));
+			
 		default:
 			cout << "Creating NO_Command" << endl;
 			return unique_ptr<Command>(new no_command(database,conn));
