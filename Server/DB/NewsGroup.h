@@ -13,8 +13,8 @@ using namespace std;
 class NewsGroup{
 public:
 	NewsGroup(string namearg);
-	void addArticle(shared_ptr<Article> a);
-	void removeArticle(string artID);
+	bool addArticle(shared_ptr<Article> a);
+	bool removeArticle(string artID);
 	bool contains(string id);
 	string getArticle(string id);
 	vector<pair<string,int>> listArticles();

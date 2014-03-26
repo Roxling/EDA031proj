@@ -12,12 +12,12 @@ NewsGroup::NewsGroup(string namearg):name(namearg),timestamp(Date()){
 	id = to_string(counter++);
 }
 
-void NewsGroup::addArticle(shared_ptr<Article> a){
-	articles.insert(make_pair(a->id,a));
+bool NewsGroup::addArticle(shared_ptr<Article> a){
+	return articles.insert(make_pair(a->id,a)).second;
 }
 
-void NewsGroup::removeArticle(string artID){
-	articles.erase(artID);
+bool NewsGroup::removeArticle(string artID){
+	return articles.erase(artID);
 }
 
 bool NewsGroup::contains(string id){
