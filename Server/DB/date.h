@@ -10,6 +10,7 @@ public:
 	Date();                    // today's date
 	Date(int y, int m, int d); // yyyy-mm-dd
 	bool operator<(Date& rhs);
+	time_t getSeconds();
 	string print();
 	
 private:
@@ -19,7 +20,7 @@ private:
 	int hour;
 	int min;
 	int sec;
-	long total;
+	time_t total;
 	static int daysPerMonth[12]; // number of days in each month
 };
 

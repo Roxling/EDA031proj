@@ -8,6 +8,12 @@ public:
 	create_art_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c);
 
 	virtual void exec() override;
+
+private:
+	string ngID;
+	string title;
+	string author;
+	string text;
 };
 
 #endif
