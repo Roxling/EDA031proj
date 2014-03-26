@@ -12,6 +12,7 @@ public:
 	bool operator<(Date& rhs);
 	time_t getSeconds();
 	string print();
+	time_t total;
 	
 private:
 	int year;  // the year (four digits)
@@ -20,7 +21,7 @@ private:
 	int hour;
 	int min;
 	int sec;
-	time_t total;
+	
 	static int daysPerMonth[12]; // number of days in each month
 };
 
