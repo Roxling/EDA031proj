@@ -17,7 +17,7 @@ public:
 
 	virtual vector<pair<string,int>> listNewsGroups() = 0;
 	virtual vector<pair<string,int>> listArticles(string ngID) = 0;
-	virtual string readArticle(string ngID,string artID) = 0;
+	virtual vector<string> readArticle(string ngID,string artID) = 0;
 	
 	virtual bool addArticle(string ngID,shared_ptr<Article> a) = 0;
 	virtual bool removeArticle(string ngID,string artID) = 0;
