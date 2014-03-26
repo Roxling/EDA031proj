@@ -26,8 +26,8 @@ public:
 	virtual bool addArticle(string ngID,shared_ptr<Article> a) override;
 	virtual bool removeArticle(string ngID,string artID) override;
 	virtual bool containsArticle(string ngID,string artID) override;
-private:
-	map<string,shared_ptr<NewsGroup>> newsgroups;
+private:	
+	map<string,shared_ptr<NewsGroup>,bool(*)(NewsGroup&,NewsGroup&)> newsgroups([](NewsGroup& lhs, NewsGroup& rhs){return true;});
 };
 
 #endif

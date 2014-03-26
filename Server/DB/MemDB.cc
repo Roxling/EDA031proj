@@ -9,7 +9,8 @@
 
 using namespace std;
 
-MemDB::MemDB(){}
+MemDB::MemDB(){
+}
 
 bool MemDB::addNewsGroup(shared_ptr<NewsGroup> ng){
 	return newsgroups.insert(make_pair(ng->id,ng)).second;
