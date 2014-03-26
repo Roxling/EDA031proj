@@ -66,8 +66,7 @@ bool MemDB::addArticle(string ngID,shared_ptr<Article> a){
 bool MemDB::removeArticle(string ngID,string artID){
 	auto it = newsgroups.find(ngID);
 	if(it != newsgroups.end()){
-		it->second->removeArticle(artID);
-		return true;
+		return it->second->removeArticle(artID);
 	}
 	return false;
 }
