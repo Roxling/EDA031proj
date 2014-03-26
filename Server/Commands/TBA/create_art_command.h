@@ -16,10 +16,10 @@ public:
 	shared_ptr<Article> art(new Article(author,title,text));
 		try{
 			db->addArticle(args,art);
-			return p.ANS_CREATE_ART + " " +p.ANS_ACK + " " + p.ANS_END;	
+			return protocol.ANS_CREATE_ART + " " +protocol.ANS_ACK + " " + protocol.ANS_END;	
 		}
 		catch(connectionclosedexception e){
-		 return p.ANS_CREATE_ART + " " +p.ANS_NAK + " " + p.ERR_NG_DOES_NOT_EXIST + " " + p.ANS_END;	
+		 return protocol.ANS_CREATE_ART + " " +protocol.ANS_NAK + " " + protocol.ERR_NG_DOES_NOT_EXIST + " " + protocol.ANS_END;	
 		}
 	};
 private:

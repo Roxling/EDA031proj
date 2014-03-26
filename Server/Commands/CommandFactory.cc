@@ -21,30 +21,19 @@
 using namespace std;
 
 unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection> conn){
-		char temp = conn->read();
-		cout << "command: " << temp-0 << endl;
-		switch (temp-0)
-		{
-		case p.COM_LIST_NG:  {//list newgroup
+		switch (conn->read() - 0){
+		case p.COM_LIST_NG:
 			cout << "Creating List NG Command" << endl;
-			unique_ptr<Command> c(new list_ng_command(database, conn));			
-			return  c;
-		    	break; }
-		case p.COM_CREATE_NG:{
+			return unique_ptr<Command>(new list_ng_command(database, conn));
+		case p.COM_CREATE_NG:
 			cout << "Creating create NG Command" << endl;
-			unique_ptr<Command> c(new create_ng_command(database,conn));
-			return  c;
-		    	break;}
-		
-		case p.COM_DELETE_NG:{
-			unique_ptr<Command> c(new delete_ng_command(database,conn));
-			return  c;
-		    	break;}
-		
-		case p.COM_LIST_ART:{
-			unique_ptr<Command> c(new list_art_command(database,conn));
-			return  c;
-			break;}
+			return unique_ptr<Command>(new create_ng_command(database,conn));
+		case p.COM_DELETE_NG:
+			cout << "Creating delete NG Command" << endl;
+			return unique_ptr<Command>(new delete_ng_command(database,conn));
+		case p.COM_LIST_ART:
+			cout << "Creating list ART Command" << endl;
+			return unique_ptr<Command>(new list_art_command(database,conn));
 		/*
 		case p.COM_CREATE_ART:{
 			unique_ptr<Command> c(new create_art_command(database));
@@ -60,11 +49,7 @@ unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection> conn){
 			break;} */
 		default:
 			cout << "Creating NO_Command" << endl;
-			unique_ptr<Command> c(new no_command());
-			return  c;
- 		    	break;
+			return unique_ptr<Command>(new no_command());
 		}	
-		
-		
 }
 

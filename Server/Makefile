@@ -17,7 +17,7 @@ LDFLAGS =   -g
 PROGS = newsserver
 all:$(PROGS)
 	
-newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o DB/MemDB.o DB/Article.o DB/NewsGroup.o DB/date.o ../protocol.o
+newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o Commands/list_ng_command.o DB/MemDB.o DB/Article.o DB/NewsGroup.o DB/date.o ../protocol.o
 
 CommandFactory: Commands/CommandFactory.o ../protocol.o
 

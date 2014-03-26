@@ -28,20 +28,6 @@ void writeString(const shared_ptr<Connection>& conn, vector<byte>& reply) {
 	}
 }
 
-/*
-vector<byte> readcommand(const shared_ptr<Connection>& conn){
-	vector<byte> comm;
-	byte b; 	
-	do
-	{
-		b = conn->read();
-		comm.push_back(b);
-	}while(b != protocol.COM_END);
-
-	return comm;
-	
-}
-*/
 
 int main(int argc, char* argv[]){
 
@@ -77,8 +63,7 @@ int main(int argc, char* argv[]){
 			} catch (ConnectionClosedException&) {
 				server.deregisterConnection(conn);
 				cout << "Client closed connection" << endl;
-			}
-			catch (ProtocolBrokenException){
+			}catch (ProtocolBrokenException&){
 				cout << "Client broke protocol. Kill them." << endl;
 				server.deregisterConnection(conn);
 			}
