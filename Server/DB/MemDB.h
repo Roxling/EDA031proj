@@ -16,14 +16,16 @@ public:
 	MemDB();
 
 	virtual bool addNewsGroup(shared_ptr<NewsGroup> ng) override;
-	virtual void removeNewsGroup(string id) override;
+	virtual bool removeNewsGroup(string id) override;
+	virtual bool containsNewsGroup(string ngID) override;
 
 	virtual vector<pair<string,int>> listNewsGroups() override;
 	virtual vector<pair<string,int>> listArticles(string ngID) override;
 	virtual string readArticle(string ngID,string artID) override;
 	
-	virtual void addArticle(string ngID,shared_ptr<Article> a) override;
-	virtual void removeArticle(string ngID,string artID) override;
+	virtual bool addArticle(string ngID,shared_ptr<Article> a) override;
+	virtual bool removeArticle(string ngID,string artID) override;
+	virtual bool containsArticle(string ngID,string artID) override;
 private:
 	unordered_map<string,shared_ptr<NewsGroup>> newsgroups;
 };
