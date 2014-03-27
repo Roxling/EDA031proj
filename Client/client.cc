@@ -218,7 +218,7 @@ int main(int argc, char* argv[]) {
 
 	ReplyFactory rf;
 	string comms;
-	cout << "Type -help to display help, -quit to exit or enter commands: \n >> ";
+	cout << "Type -help to display help, -quit to exit or enter commands: \n>> ";
 	while (getline(cin,comms)) {
 		try{
 			vector<byte> comm;
