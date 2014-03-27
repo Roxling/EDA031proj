@@ -2,7 +2,6 @@
 #include "Article.h"
 #include "NewsGroup.h"
 #include "Database.h"
-#include "date.h"
 #include <string>
 #include <iostream>
 #include <vector>

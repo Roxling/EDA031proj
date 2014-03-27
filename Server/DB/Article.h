@@ -1,7 +1,6 @@
 #ifndef ARTICLE_H
 #define ARTICLE_H
 #include <string>
-#include "date.h"
 
 using namespace std;
 
@@ -15,8 +14,6 @@ private:
 	string author;
 	string title;
 	string text;
-	Date timestamp;
-	
 };
 
 #endif

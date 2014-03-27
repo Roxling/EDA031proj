@@ -6,7 +6,6 @@
 #include "Database.h"
 #include <string>
 #include <map>
-#include "date.h"
 
 using namespace std;
 

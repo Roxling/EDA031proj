@@ -2,7 +2,6 @@
 #include <set>
 #include "Article.h"
 #include "NewsGroup.h"
-#include "date.h"
 #include <memory>
 #include <vector>
 

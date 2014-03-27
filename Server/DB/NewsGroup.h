@@ -5,7 +5,6 @@
 #include <map>
 #include "Article.h"
 #include <memory>
-#include "date.h"
 #include <vector>
 
 using namespace std;
@@ -22,7 +21,6 @@ public:
 	vector<pair<string,int>> listArticles();
 	string name;
 	string id;
-	Date timestamp;
 private:
 	map<string,shared_ptr<Article>> articles;
 

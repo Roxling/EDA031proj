@@ -3,7 +3,7 @@
 #include "Article.h"
 using namespace std;
 
-Article::Article(string authorarg,string titlearg,string textarg):author(authorarg),title(titlearg),text(textarg),timestamp(Date()){
+Article::Article(string authorarg,string titlearg,string textarg):author(authorarg),title(titlearg),text(textarg){
 	static unsigned int counter;
 	id = to_string(counter++);
 }
