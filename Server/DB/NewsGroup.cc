@@ -7,9 +7,10 @@
 
 using namespace std;
 
+unsigned int NewsGroup::counter;
+
 NewsGroup::NewsGroup(string namearg):name(namearg){
-	static unsigned int counter;
-	id = to_string(counter++);
+	id = to_string(static_cast<int>(NewsGroup::counter++));
 }
 
 bool NewsGroup::addArticle(shared_ptr<Article> a){
@@ -22,6 +23,11 @@ bool NewsGroup::removeArticle(string artID){
 
 bool NewsGroup::contains(string id){
 	return articles.find(id) != articles.end();
+}
+
+void NewsGroup::setCounters(int ngcounter,int artcounter){
+	NewsGroup::counter = ngcounter;
+	Article::counter = artcounter;
 }
 
 vector<string> NewsGroup::getArticle(string id){

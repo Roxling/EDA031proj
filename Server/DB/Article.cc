@@ -3,9 +3,10 @@
 #include "Article.h"
 using namespace std;
 
+unsigned int Article::counter;
+
 Article::Article(string authorarg,string titlearg,string textarg):author(authorarg),title(titlearg),text(textarg){
-	static unsigned int counter;
-	id = to_string(counter++);
+	id = to_string(static_cast<int>(Article::counter++));
 }
 string Article::getID() const{
 	return id;

@@ -5,7 +5,8 @@
 #include "Commands/CommandFactory.h"
 #include "DB/Database.h"
 
-#include "DB/MemDB.h" //temp?
+#include "DB/MemDB.h"
+#include "DB/DiskDB.h"
 
 #include <memory>
 #include <iostream>
@@ -30,11 +31,16 @@ void writeString(const shared_ptr<Connection>& conn, vector<byte>& reply) {
 
 
 int main(int argc, char* argv[]){
+	Database* d;
+	if(argc == 3){
+		d = new MemDB();
+	}else{
+		d = new DiskDB();
+	}
+	shared_ptr<Database> db(d);
 
-	shared_ptr<Database> db(new MemDB()); //Make generalistic
-
-	if (argc != 2) {
-		cerr << "Usage: myserver port-number" << endl;
+	if (argc != 2 || argc != 3) {
+		cerr << "Usage: myserver port-number memorydatabase (optional, diskdatabase is default)" << endl;
 		exit(1);
 	}
 	

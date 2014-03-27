@@ -17,7 +17,7 @@ LDFLAGS =   -g
 PROGS = newsserver
 all:$(PROGS)
 	
-newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o Commands/Command.o Commands/create_art_command.o Commands/create_ng_command.o Commands/delete_art_command.o Commands/delete_ng_command.o Commands/get_art_command.o Commands/list_art_command.o Commands/list_ng_command.o Commands/no_command.o DB/MemDB.o DB/Article.o DB/NewsGroup.o ../protocol.o
+newsserver: newsserver.o ../connection.o server.o Commands/CommandFactory.o Commands/Command.o Commands/create_art_command.o Commands/create_ng_command.o Commands/delete_art_command.o Commands/delete_ng_command.o Commands/get_art_command.o Commands/list_art_command.o Commands/list_ng_command.o Commands/no_command.o DB/MemDB.o DB/DiskDB.o DB/Article.o DB/NewsGroup.o ../protocol.o
 
 CommandFactory: Commands/CommandFactory.o ../protocol.o
 

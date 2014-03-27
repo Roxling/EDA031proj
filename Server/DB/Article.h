@@ -9,11 +9,11 @@ class Article{
 public:	
 	Article(string authorarg,string titlearg,string textarg);
 	string getID() const;
-private:	
+private:
+	static unsigned int counter;
 	string id;
 	string author;
 	string title;
 	string text;
 };
-
 #endif

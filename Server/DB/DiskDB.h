@@ -1,5 +1,5 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#ifndef DISKDB_H
+#define DISKDB_H
 
 #include "Article.h"
 #include "NewsGroup.h"
@@ -11,9 +11,11 @@
 
 using namespace std;
 
-class DiskDB{
+class DiskDB : public Database {
 
 public:
+	DiskDB();
+
 	virtual bool addNewsGroup(shared_ptr<NewsGroup> ng) override;
 	virtual bool removeNewsGroup(string id) override;
 	virtual bool containsNewsGroup(string ngID) override;
