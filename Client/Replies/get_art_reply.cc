@@ -14,7 +14,6 @@ get_art_reply::get_art_reply(const Connection& conn){
 			if(conn.read() == protocol.PAR_STRING){
 				int length = readNumber(conn);
 				string param = "";
-				cout <<"length: "+to_string(length) << endl;
 				for(int j = 0 ; j < length; ++j){
 					param += conn.read();
 				}
