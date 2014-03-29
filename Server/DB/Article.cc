@@ -6,9 +6,9 @@ using namespace std;
 unsigned int Article::counter;
 
 Article::Article(string authorarg,string titlearg,string textarg):author(authorarg),title(titlearg),text(textarg){
-	id = to_string(static_cast<int>(Article::counter++));
+	id = Article::counter++;
 }
-string Article::getID() const{
+int Article::getID() const{
 	return id;
 }
 

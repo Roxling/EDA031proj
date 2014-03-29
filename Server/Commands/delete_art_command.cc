@@ -3,9 +3,9 @@
 
 delete_art_command::delete_art_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c) : Command(db2,c){
 	if(conn->read() == protocol.PAR_NUM){
-		ngid = to_string(readNumber(*conn));
+		ngid = readNumber(*conn);
 		if(conn->read() == protocol.PAR_NUM){
-			artid = to_string(readNumber(*conn));
+			artid = readNumber(*conn);
 		}else{
 			protocolBroken();
 		}

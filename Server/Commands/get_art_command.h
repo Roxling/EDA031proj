@@ -10,8 +10,8 @@ public:
 
 	virtual void exec() override;
 private:
-	string ngID;
-	string artID;
+	int ngID;
+	int artID;
 };
 
 #endif

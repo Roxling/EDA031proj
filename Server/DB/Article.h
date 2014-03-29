@@ -6,12 +6,13 @@ using namespace std;
 
 class Article{
 	friend class NewsGroup;
-public:	
+	friend class DiskDB;
+public:
 	Article(string authorarg,string titlearg,string textarg);
-	string getID() const;
+	int getID() const;
 private:
 	static unsigned int counter;
-	string id;
+	int id;
 	string author;
 	string title;
 	string text;

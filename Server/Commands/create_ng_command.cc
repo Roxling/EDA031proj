@@ -5,7 +5,7 @@ create_ng_command::create_ng_command(shared_ptr<Database>& db2,shared_ptr<Connec
 		if(conn->read() == protocol.PAR_STRING){
 			int n = readNumber(*conn);
 			for(int i = 0; i< n; ++i){
-				ngID += conn->read();
+				ngname += conn->read();
 			}
 		}else{
 			protocolBroken();
@@ -16,7 +16,7 @@ create_ng_command::create_ng_command(shared_ptr<Database>& db2,shared_ptr<Connec
 	}
 
 void create_ng_command::exec(){
-	shared_ptr<NewsGroup> ng(new NewsGroup(ngID));
+	shared_ptr<NewsGroup> ng(new NewsGroup(ngname));
 	conn->write(protocol.ANS_CREATE_NG);
 	if(db->addNewsGroup(ng)){
 		conn->write(protocol.ANS_ACK);

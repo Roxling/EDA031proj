@@ -3,7 +3,7 @@
 
 list_art_command::list_art_command(shared_ptr<Database>& db2, shared_ptr<Connection>& c) : Command(db2,c){
 	if(conn->read() == protocol.PAR_NUM){
-		ngID = to_string(readNumber(*conn));
+		ngID = readNumber(*conn);
 	}else{
 		protocolBroken();
 	}

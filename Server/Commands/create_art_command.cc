@@ -6,7 +6,7 @@ create_art_command::create_art_command(shared_ptr<Database>& db2, shared_ptr<Con
 	if(conn->read() != protocol.PAR_NUM){
 		protocolBroken();
 	}
-	ngID = to_string(readNumber(*conn));
+	artID = readNumber(*conn);
 	if(conn->read() != protocol.PAR_STRING){
 		protocolBroken();
 	}
@@ -28,7 +28,7 @@ create_art_command::create_art_command(shared_ptr<Database>& db2, shared_ptr<Con
 void create_art_command::exec(){
 
 		conn->write(protocol.ANS_CREATE_ART);
-		if(db->addArticle(ngID,shared_ptr<Article>(new Article(author, title, text)))){
+		if(db->addArticle(artID,shared_ptr<Article>(new Article(author, title, text)))){
 			conn->write(protocol.ANS_ACK);
 		}else{
 			conn->write(protocol.ANS_NAK);

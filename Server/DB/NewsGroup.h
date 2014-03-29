@@ -17,16 +17,16 @@ class NewsGroup{
 public:
 	NewsGroup(string namearg);
 	bool addArticle(shared_ptr<Article> a);
-	bool removeArticle(string artID);
-	bool contains(string id);
-	vector<string> getArticle(string id);
+	bool removeArticle(int artID);
+	bool contains(int id);
+	vector<string> getArticle(int id);
 private:
 	static void setCounters(int ngcounter,int artcounter);
 	static unsigned int counter;
 	vector<pair<string,int>> listArticles();
-	string id;
+	int id;
 	string name;
-	map<string,shared_ptr<Article>> articles;
+	map<int,shared_ptr<Article>> articles;
 
 };
 

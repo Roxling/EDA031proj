@@ -10,7 +10,7 @@ public:
 	virtual void exec() override;
 
 private:
-	string ngID;
+	int artID;
 	string title;
 	string author;
 	string text;

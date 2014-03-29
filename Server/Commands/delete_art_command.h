@@ -9,8 +9,8 @@ public:
 
 	virtual void exec() override;
 private:
-	string ngid;
-	string artid;
+	int ngid;
+	int artid;
 };
 
 #endif
