@@ -23,29 +23,20 @@ using namespace std;
 unique_ptr<Command> CommandFactory::createcommand(shared_ptr<Connection>& conn){
 		switch (conn->read() - 0){
 		case p.COM_LIST_NG:
-			cout << "Creating List NG Command" << endl;
 			return unique_ptr<Command>(new list_ng_command(database, conn));
 		case p.COM_CREATE_NG:
-			cout << "Creating create NG Command" << endl;
 			return unique_ptr<Command>(new create_ng_command(database,conn));
 		case p.COM_DELETE_NG:
-			cout << "Creating delete NG Command" << endl;
 			return unique_ptr<Command>(new delete_ng_command(database,conn));
 		case p.COM_LIST_ART:
-			cout << "Creating list ART Command" << endl;
 			return unique_ptr<Command>(new list_art_command(database,conn));
 		case p.COM_CREATE_ART:
-			cout << "Creating CREATE_ART Command" << endl;
 			return unique_ptr<Command>(new create_art_command(database,conn));
 		case p.COM_DELETE_ART:
-			cout << "Creating DELETE_ART Command" << endl;
 			return unique_ptr<Command>(new delete_art_command(database,conn));
 		case p.COM_GET_ART:
-			cout << "Creating GET_ART Command" << endl;
 			return unique_ptr<Command>(new get_art_command(database,conn));
-			
 		default:
-			cout << "Creating NO_Command" << endl;
 			return unique_ptr<Command>(new no_command(database,conn));
 		}	
 }

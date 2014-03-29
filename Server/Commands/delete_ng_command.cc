@@ -16,7 +16,6 @@ delete_ng_command::delete_ng_command(shared_ptr<Database>& db2, shared_ptr<Conne
 void delete_ng_command::exec(){
 	conn->write(protocol.ANS_DELETE_NG);
 	if(db->removeNewsGroup(ngID)){
-cout << "hej" << endl;
 		conn->write(protocol.ANS_ACK);
 	}else{
 		conn->write(protocol.ANS_NAK);
