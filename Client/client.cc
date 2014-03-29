@@ -45,21 +45,22 @@ string readstring(istringstream& iss){
 }
 string readtext(istringstream& iss){
 	string arg = "PAR_STRING ";
+	if(iss){
+		// get length
+		int start = iss.tellg();
+		start++;
+		iss.seekg (0, iss.end);
+		int length = iss.tellg();
+		length -= start;
+		iss.seekg (start, iss.beg);
+		char * buffer = new char [length];
+		iss.read (buffer,length);
 
-	// get length
-	int start = iss.tellg();
-	start++;
-	iss.seekg (0, iss.end);
-	int length = iss.tellg();
-	length -= start;
-	iss.seekg (start, iss.beg);
-	char * buffer = new char [length];
-	iss.read (buffer,length);
+		arg += to_string(length)+" ";
+		arg += buffer;
 
-	arg += to_string(length)+" ";
-	arg += buffer;
-
-	delete[] buffer;
+		delete[] buffer;
+	}
 
 	return arg;
 }
