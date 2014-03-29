@@ -75,8 +75,6 @@ vector<pair<string, int>> DiskDB::listNewsGroups() {
 		mkdir(ROOT.c_str(),S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
 		rootdir = opendir(ROOT.c_str());
 	}
-	readdir(rootdir); //skips . and ..
-	readdir(rootdir);
 	while(struct dirent* entry = readdir(rootdir)){
 		string ng = entry->d_name;
 		struct stat dirstat;
@@ -100,9 +98,6 @@ vector<pair<string, int>> DiskDB::listArticles(int ngID) {
 		if(pair.second == ngID){
 			DIR* newsgroup = opendir((ROOT+"/"+pair.first+DELIMITER+to_string(ngID)).c_str());
 			if(newsgroup){
-				readdir(newsgroup); //skips . and ..
-				readdir(newsgroup);
-
 				while(struct dirent* article = readdir(newsgroup)){
 					struct stat artstat;
 					fstatat(dirfd(newsgroup), article->d_name, &artstat, 0);
