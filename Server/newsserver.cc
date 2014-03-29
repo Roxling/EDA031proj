@@ -39,7 +39,7 @@ int main(int argc, char* argv[]){
 	}
 	shared_ptr<Database> db(d);
 
-	if (argc != 2 || argc != 3) {
+	if (argc < 2 || argc > 3 ) {
 		cerr << "Usage: myserver port-number memorydatabase (optional, diskdatabase is default)" << endl;
 		exit(1);
 	}

@@ -22,7 +22,7 @@ all:   $(PROGS)
 # Doesn't seem to do any damage on other systems.
 
 all: $(PROGS)
-Databasetest: MemDB.o Article.o NewsGroup.o date.o
+Databasetest: DiskDB.o Article.o NewsGroup.o 
 
 # Phony targets
 .PHONY: all clean
